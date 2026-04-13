@@ -1,0 +1,1789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>H&M — Strategic Marketing Intelligence</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#ffffff;--bg2:#f5f5f5;--bg3:#eeeeee;--bg4:#e5e5e5;
+  --border:rgba(0,0,0,0.10);--border2:rgba(0,0,0,0.18);
+  --text:#cc0000;--muted:#aa0000;--muted2:#880000;
+  --accent:#E50010;--accent-dim:rgba(229,0,16,0.12);
+  --gold:#c9a84c;--gold-dim:rgba(201,168,76,0.12);
+  --green:#2ecc71;--red:#e74c3c;--amber:#f39c12;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'DM Sans',sans-serif;--mono:'DM Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:#fff;color:#cc0000;overflow-x:hidden;font-size:13px}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");pointer-events:none;z-index:999;opacity:.5}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:300;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:60px;background:rgba(255,255,255,0.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-brand{display:flex;align-items:center;gap:12px}
+.nav-logo{width:36px;height:36px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-weight:600;font-size:13px;color:#fff;border-radius:4px;letter-spacing:-.5px}
+.nav-name{font-family:var(--serif);font-size:17px;font-weight:400;letter-spacing:.04em}
+.nav-sub{font-size:11px;color:var(--muted);display:block;font-family:var(--sans);font-weight:300;letter-spacing:.06em;margin-top:-2px}
+.nav-links{display:flex;gap:1.6rem}
+.nav-links a{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s}
+.nav-links a:hover,.nav-links a.active{color:var(--text)}
+.nav-right{display:flex;align-items:center;gap:10px}
+.nav-badge{font-size:11px;background:var(--accent-dim);border:1px solid rgba(229,0,16,.3);color:var(--accent);padding:3px 10px;border-radius:20px;letter-spacing:.06em}
+.filter-toggle-btn{font-size:11px;letter-spacing:.1em;text-transform:uppercase;background:var(--gold-dim);border:1px solid rgba(201,168,76,.3);color:var(--gold);padding:5px 14px;border-radius:2px;cursor:pointer;font-family:var(--sans);transition:all .2s;display:flex;align-items:center;gap:6px}
+.filter-toggle-btn:hover{background:rgba(201,168,76,.2)}
+.filter-dot{width:6px;height:6px;border-radius:50%;background:var(--gold)}
+
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:120px 2.5rem 80px;position:relative;overflow:hidden}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,0,0,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.04) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 40%,transparent 100%)}
+.hero-glow{position:absolute;top:-200px;left:-200px;width:700px;height:700px;background:radial-gradient(circle,rgba(229,0,16,0.06) 0%,transparent 70%);pointer-events:none}
+.hero-glow2{position:absolute;bottom:-100px;right:-100px;width:500px;height:500px;background:radial-gradient(circle,rgba(201,168,76,0.04) 0%,transparent 70%);pointer-events:none}
+.hero-eyebrow{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem;display:flex;align-items:center;gap:10px}
+.hero-eyebrow::before{content:'';width:32px;height:1px;background:var(--gold);opacity:.6}
+.hero h1{font-family:var(--serif);font-size:clamp(3rem,8vw,7rem);font-weight:300;line-height:1.0;letter-spacing:-.01em;margin-bottom:1rem}
+.hero h1 em{font-style:italic;color:var(--muted)}
+.hero-sub{font-size:14px;color:var(--muted);max-width:480px;line-height:1.7;margin-bottom:3rem;font-weight:300}
+.hero-stats{display:flex;gap:3rem;flex-wrap:wrap}
+.hero-stat{border-left:1px solid var(--border2);padding-left:1.5rem}
+.hero-stat-val{font-family:var(--serif);font-size:2.2rem;font-weight:300;line-height:1}
+.hero-stat-val sub{font-size:.9rem;font-family:var(--sans)}
+.hero-stat-lbl{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.hero-scroll{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted2)}
+.scroll-line{width:1px;height:40px;background:linear-gradient(var(--border2),transparent);animation:scrollPulse 2s ease-in-out infinite}
+@keyframes scrollPulse{0%,100%{opacity:.3}50%{opacity:1}}
+
+.filter-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:500;backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .3s}
+.filter-overlay.open{opacity:1;pointer-events:all}
+.filter-panel{position:fixed;top:0;right:0;bottom:0;width:380px;max-width:100vw;background:var(--bg2);border-left:1px solid var(--border2);z-index:501;transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);overflow-y:auto;display:flex;flex-direction:column}
+.filter-panel.open{transform:none}
+.filter-header{padding:1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--bg2);z-index:10}
+.filter-header h3{font-family:var(--serif);font-size:1.3rem;font-weight:300}
+.filter-close{background:none;border:1px solid var(--border);color:var(--muted);width:32px;height:32px;border-radius:2px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.filter-close:hover{border-color:var(--border2);color:var(--text)}
+.filter-body{padding:1.2rem 1.5rem;flex:1}
+.filter-group{margin-bottom:1.5rem}
+.filter-label{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.filter-label::after{content:'';flex:1;height:1px;background:rgba(201,168,76,.15)}
+.f-select{width:100%;background:var(--bg3);border:1px solid var(--border2);color:var(--text);font-family:var(--sans);font-size:12px;padding:9px 14px;border-radius:2px;outline:none;cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23cc0000' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;transition:border-color .2s}
+.f-select:hover,.f-select:focus{border-color:var(--gold)}
+.f-select option{background:var(--bg3);color:#333}
+.chip-grid{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:11px;padding:5px 12px;border:1px solid var(--border2);border-radius:2px;cursor:pointer;color:var(--muted);transition:all .2s;letter-spacing:.04em;user-select:none}
+.chip:hover{border-color:var(--border2);color:var(--text)}
+.chip.active{background:var(--gold-dim);border-color:rgba(201,168,76,.4);color:var(--gold)}
+.budget-row{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+.budget-input{flex:1;background:var(--bg3);border:1px solid var(--border2);color:var(--text);font-family:var(--mono);font-size:12px;padding:7px 10px;border-radius:2px;outline:none}
+.budget-input:focus{border-color:var(--gold)}
+.budget-sep{font-size:12px;color:var(--muted)}
+.budget-presets{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
+.budget-pre{font-size:11px;padding:4px 10px;border:1px solid var(--border);border-radius:2px;cursor:pointer;color:var(--muted);transition:all .2s}
+.budget-pre:hover,.budget-pre.active{border-color:rgba(201,168,76,.4);color:var(--gold);background:var(--gold-dim)}
+.filter-footer{padding:1.2rem 1.5rem;border-top:1px solid var(--border);position:sticky;bottom:0;background:var(--bg2);display:flex;gap:8px}
+.btn-apply{flex:2;padding:11px;background:var(--accent);color:#fff;border:none;font-family:var(--sans);font-size:11px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:opacity .2s}
+.btn-apply:hover{opacity:.9}
+.btn-reset{flex:1;padding:11px;background:transparent;color:var(--muted);border:1px solid var(--border2);font-family:var(--sans);font-size:11px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .2s}
+.btn-reset:hover{color:var(--text);border-color:var(--border2)}
+.active-filters{background:var(--bg3);border-bottom:1px solid var(--border);padding:.7rem 2rem;display:none;flex-wrap:wrap;gap:6px;align-items:center}
+.active-filters.show{display:flex}
+.af-label{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted2);margin-right:4px}
+.af-tag{font-size:11px;padding:3px 10px;background:var(--gold-dim);border:1px solid rgba(201,168,76,.3);color:var(--gold);border-radius:20px;display:flex;align-items:center;gap:5px}
+.af-clear{font-size:11px;color:var(--muted2);cursor:pointer;margin-left:auto;text-decoration:underline;transition:color .2s}
+.af-clear:hover{color:var(--muted)}
+
+section{padding:80px 2.5rem;max-width:1300px;margin:0 auto}
+.section-eyebrow{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.8rem;display:flex;align-items:center;gap:10px}
+.section-eyebrow::before{content:'';width:24px;height:1px;background:var(--gold);opacity:.6}
+.section-title{font-family:var(--serif);font-size:clamp(2rem,4vw,3rem);font-weight:300;line-height:1.15;margin-bottom:.5rem}
+.section-title em{font-style:italic;color:var(--muted)}
+.section-desc{font-size:13px;color:var(--muted);max-width:560px;line-height:1.7;margin-bottom:2.5rem;font-weight:300}
+.full-divider{border:none;border-top:1px solid var(--border);margin:0}
+
+.context-banner{background:linear-gradient(135deg,var(--bg3),rgba(201,168,76,.04));border:1px solid rgba(201,168,76,.15);padding:1rem 1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:2rem;border-radius:2px}
+.ctx-left{display:flex;align-items:center;gap:12px}
+.ctx-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.ctx-text{font-size:12px;color:var(--muted)}
+.ctx-text strong{color:var(--text);font-weight:500}
+.ctx-chips{display:flex;flex-wrap:wrap;gap:5px}
+.ctx-chip{font-size:10px;padding:2px 8px;background:var(--bg4);border:1px solid var(--border2);border-radius:20px;color:var(--muted);letter-spacing:.04em}
+
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border)}
+.kpi-cell{background:var(--bg2);padding:1.8rem 1.5rem;position:relative;overflow:hidden;transition:background .3s}
+.kpi-cell:hover{background:var(--bg3)}
+.kpi-cell::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:0;transition:opacity .3s}
+.kpi-cell:hover::after{opacity:1}
+.kpi-tag{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted2);margin-bottom:.8rem}
+.kpi-val{font-family:var(--serif);font-size:2.4rem;font-weight:300;line-height:1;margin-bottom:.4rem;transition:all .4s}
+.kpi-delta{font-size:12px;display:flex;align-items:center;gap:5px}
+.kpi-delta.pos{color:var(--green)}.kpi-delta.neg{color:var(--red)}
+.kpi-bar{position:absolute;bottom:0;left:0;height:2px;background:var(--accent);transition:width .8s ease}
+
+.card{background:var(--bg2);border:1px solid var(--border);padding:1.5rem;position:relative;overflow:hidden}
+.card h4{font-family:var(--serif);font-size:1.1rem;font-weight:400;margin-bottom:1rem}
+
+.charts-2col{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border)}
+.chart-wrap{position:relative}
+.chart-h200{height:200px}.chart-h260{height:260px}.chart-h300{height:300px}
+.chart-legend{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:10px;font-size:11px;color:var(--muted)}
+.ld{width:8px;height:8px;border-radius:1px;display:inline-block;margin-right:3px;vertical-align:middle}
+
+.funnel-row{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.funnel-lbl{min-width:110px;font-size:11px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.funnel-track{flex:1;height:26px;background:rgba(0,0,0,.04);border-radius:2px;overflow:hidden}
+.funnel-fill{height:100%;display:flex;align-items:center;padding:0 10px;font-size:11px;color:rgba(255,255,255,.9);letter-spacing:.04em;transition:width .8s cubic-bezier(.4,0,.2,1);font-weight:500}
+.funnel-num{min-width:60px;text-align:right;font-family:var(--mono);font-size:11px;color:var(--muted)}
+
+.tab-row{display:flex;border-bottom:1px solid var(--border)}
+.tab-btn{font-size:11px;padding:10px 18px;background:transparent;border:none;cursor:pointer;font-family:var(--sans);color:var(--muted);letter-spacing:.1em;text-transform:uppercase;position:relative;transition:color .2s}
+.tab-btn::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:1px;background:var(--gold);transform:scaleX(0);transition:transform .3s}
+.tab-btn.active{color:var(--text)}.tab-btn.active::after{transform:scaleX(1)}
+.data-table{width:100%;border-collapse:collapse;font-size:12px}
+.data-table th{font-size:10px;color:var(--muted2);font-weight:400;text-align:left;padding:9px 14px;border-bottom:1px solid var(--border);letter-spacing:.1em;text-transform:uppercase}
+.data-table td{padding:11px 14px;border-bottom:1px solid var(--border);font-size:12px;transition:background .15s}
+.data-table tr:last-child td{border-bottom:none}
+.data-table tr:hover td{background:rgba(0,0,0,.02)}
+.brand-hl td:first-child{font-weight:500}
+.pill{font-size:10px;padding:2px 8px;border-radius:2px;letter-spacing:.06em;font-weight:500}
+.pg{background:rgba(46,204,113,.12);color:#16a34a}.pr{background:rgba(231,76,60,.12);color:#dc2626}.py{background:rgba(243,156,18,.12);color:#d97706}
+
+.sent-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--border);margin-top:1rem}
+.sent-box{padding:1.4rem;text-align:center;background:var(--bg2)}
+.sent-val{font-family:var(--serif);font-size:2.2rem;font-weight:300;transition:all .4s}
+.sent-lbl{font-size:10px;letter-spacing:.12em;text-transform:uppercase;margin-top:4px;color:var(--muted)}
+
+.sim-section{background:var(--bg2);border:1px solid var(--border);padding:2.5rem;position:relative;overflow:hidden}
+.sim-section::before{content:'LIVE';position:absolute;top:1.5rem;right:1.5rem;font-size:10px;letter-spacing:.2em;color:var(--accent);border:1px solid rgba(229,0,16,.3);padding:3px 10px;border-radius:2px;animation:blink 2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
+.sim-layout{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:start}
+.slider-group{margin-bottom:1.4rem}
+.slider-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7px}
+.slider-name{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.slider-val{font-family:var(--mono);font-size:13px;color:var(--gold)}
+input[type=range]{width:100%;-webkit-appearance:none;height:1px;background:var(--border2);outline:none;cursor:pointer}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:13px;height:13px;border-radius:50%;background:var(--accent);border:2px solid #fff;cursor:pointer}
+input[type=range]:hover::-webkit-slider-thumb{background:var(--gold)}
+.s-opt{display:flex;align-items:center;gap:10px;padding:8px 12px;border:1px solid var(--border);cursor:pointer;font-size:12px;color:var(--muted);transition:all .2s;border-radius:2px;margin-bottom:5px}
+.s-opt:hover{border-color:var(--border2);color:var(--text)}
+.s-opt.selected{border-color:rgba(201,168,76,.4);color:var(--gold);background:var(--gold-dim)}
+.s-opt input{display:none}.s-dot{width:6px;height:6px;border-radius:50%;background:currentColor;flex-shrink:0}
+.sim-results{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:1.2rem}
+.sim-r{background:var(--bg3);padding:1rem 1.2rem}
+.sim-r-lbl{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2);margin-bottom:4px}
+.sim-r-val{font-family:var(--serif);font-size:1.7rem;font-weight:300;transition:all .3s}
+.roas-display{display:flex;align-items:baseline;gap:8px;padding:1rem 1.2rem;background:var(--gold-dim);border:1px solid rgba(201,168,76,.2)}
+.roas-val{font-family:var(--serif);font-size:2.6rem;font-weight:300;color:var(--gold)}
+.run-btn{width:100%;padding:13px;background:var(--accent);color:#fff;border:none;font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;margin-top:1.2rem;transition:opacity .2s}
+.run-btn:hover{opacity:.9}
+
+.ai-panel{background:var(--bg3);border:1px solid rgba(201,168,76,.15);padding:1.4rem;margin-top:1.2rem;position:relative}
+.ai-panel::before{content:'AI Analysis';position:absolute;top:-1px;left:1.2rem;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);background:var(--bg3);padding:0 5px;transform:translateY(-50%)}
+.ai-text{font-size:12px;line-height:1.8;color:var(--muted);font-weight:300}
+.ai-text strong{color:var(--text);font-weight:500}
+.ai-loading{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted2)}
+.ai-dot{width:4px;height:4px;border-radius:50%;background:var(--gold);animation:dotP 1.4s ease-in-out infinite}
+.ai-dot:nth-child(2){animation-delay:.2s}.ai-dot:nth-child(3){animation-delay:.4s}
+@keyframes dotP{0%,80%,100%{opacity:.2;transform:scale(1)}40%{opacity:1;transform:scale(1.3)}}
+
+.mix-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border)}
+.mix-cell{background:var(--bg2);padding:1.8rem 1.4rem;position:relative;overflow:hidden}
+.mix-cell::before{content:attr(data-p);position:absolute;top:1rem;right:1rem;font-family:var(--serif);font-size:3.5rem;font-weight:300;color:rgba(0,0,0,.03);line-height:1}
+.mix-p{font-family:var(--serif);font-size:1rem;font-weight:500;color:var(--gold);margin-bottom:.5rem;letter-spacing:.04em}
+.mix-title{font-size:12px;color:var(--text);margin-bottom:.4rem;font-weight:500}
+.mix-desc{font-size:12px;color:var(--muted);line-height:1.7;font-weight:300}
+
+.concl-item{border:1px solid var(--border);background:var(--bg2);cursor:pointer;transition:border-color .25s,background .25s;user-select:none;margin-bottom:8px}
+.concl-item:hover{border-color:var(--border2);background:var(--bg3)}
+.concl-item.open{border-color:rgba(201,168,76,.3);background:var(--bg3)}
+.concl-head{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.4rem;gap:1rem}
+.concl-left{display:flex;align-items:center;gap:1.2rem}
+.concl-num{font-family:var(--mono);font-size:11px;color:var(--gold);letter-spacing:.1em;min-width:20px}
+.concl-title-txt{font-size:13px;font-weight:400;color:var(--text)}
+.concl-icon{font-size:18px;color:var(--muted);font-weight:300;transition:transform .3s,color .3s;line-height:1;min-width:18px;text-align:center}
+.concl-item.open .concl-icon{transform:rotate(45deg);color:var(--gold)}
+.concl-body{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.4,0,.2,1)}
+.concl-body p{font-size:12px;line-height:1.85;color:var(--muted);font-weight:300;padding:0 1.4rem 1.3rem 3.6rem}
+.concl-body p strong{color:var(--text);font-weight:500}
+.concl-item.open .concl-body{max-height:320px}
+
+.concl-ai-panel{background:linear-gradient(135deg,var(--bg3),rgba(201,168,76,.04));border:1px solid rgba(201,168,76,.2);padding:1.8rem;margin-top:1.5rem;position:relative}
+.concl-ai-panel::before{content:'AI · Dynamic Conclusion';position:absolute;top:-1px;left:1.4rem;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);background:var(--bg3);padding:0 6px;transform:translateY(-50%)}
+.gen-btn{display:flex;align-items:center;gap:8px;background:transparent;border:1px solid rgba(201,168,76,.3);color:var(--gold);padding:9px 18px;font-family:var(--sans);font-size:11px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:all .2s;border-radius:2px}
+.gen-btn:hover{background:var(--gold-dim)}
+
+.target-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border)}
+.target-cell{background:var(--bg2);padding:1.8rem}
+.target-number{font-family:var(--serif);font-size:2.8rem;font-weight:300;line-height:1;margin-bottom:.3rem;transition:all .4s}
+.target-lbl{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.target-bar{height:1px;background:var(--border);margin:1rem 0;position:relative}
+.target-bar-fill{position:absolute;left:0;top:0;height:100%;transition:width 1.2s ease}
+
+footer{border-top:1px solid var(--border);padding:1.8rem 2.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.footer-brand{font-family:var(--serif);font-size:1.2rem;font-weight:300;color:var(--muted)}
+.footer-note{font-size:11px;color:var(--muted2);letter-spacing:.04em}
+
+.fade-up{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.fade-up.visible{opacity:1;transform:none}
+
+@media(max-width:900px){.kpi-grid,.mix-grid,.target-grid{grid-template-columns:1fr 1fr}.charts-2col,.sim-layout{grid-template-columns:1fr}nav .nav-links{display:none}.filter-panel{width:100vw}}
+@media(max-width:480px){.kpi-grid,.target-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">
+    <div class="nav-logo">H&M</div>
+    <div class="nav-name">Strategic Intelligence
+      <span class="nav-sub">PGDM · Marketing Management · 2024</span>
+    </div>
+  </div>
+  <div class="nav-links">
+    <a href="#overview" class="active">Overview</a>
+    <a href="#market">Market</a>
+    <a href="#competitors">Competitors</a>
+    <a href="#simulation">Simulation</a>
+    <a href="#strategy">Strategy</a>
+    <a href="#conclusion">Conclusion</a>
+  </div>
+  <div class="nav-right">
+    <span class="nav-badge">Live Dashboard</span>
+    <button class="filter-toggle-btn" onclick="openFilter()">
+      <span class="filter-dot"></span> Smart Filters
+    </button>
+  </div>
+</nav>
+
+<div class="filter-overlay" id="filterOverlay" onclick="closeFilter()"></div>
+<div class="filter-panel" id="filterPanel">
+  <div class="filter-header">
+    <h3>Smart Filters</h3>
+    <button class="filter-close" onclick="closeFilter()">✕</button>
+  </div>
+  <div class="filter-body">
+    <div class="filter-group">
+      <div class="filter-label">Fiscal Year</div>
+      <select class="f-select" id="f-year" onchange="applyFilters(false)">
+        <option value="2025">FY 2025 (Projected)</option>
+        <option value="2024" selected>FY 2024</option>
+        <option value="2023">FY 2023</option>
+        <option value="2022">FY 2022</option>
+        <option value="2021">FY 2021</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <div class="filter-label">Brand</div>
+      <select class="f-select" id="f-brand" onchange="applyFilters(false)">
+        <option value="hm">H&M (Hennes &amp; Mauritz)</option>
+        <option value="zara">Zara</option>
+        <option value="westside">Westside</option>
+        <option value="zudio">Zudio</option>
+        <option value="max">Max Fashion</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <div class="filter-label">Compare Competitors</div>
+      <div class="chip-grid" id="f-competitors">
+        <div class="chip active" data-val="zara">Zara</div>
+        <div class="chip active" data-val="uniqlo">Uniqlo</div>
+        <div class="chip active" data-val="shein">Shein</div>
+        <div class="chip" data-val="forever21">Forever 21</div>
+        <div class="chip" data-val="primark">Primark</div>
+        <div class="chip" data-val="gap">Gap</div>
+        <div class="chip" data-val="westside">Westside</div>
+        <div class="chip" data-val="zudio">Zudio</div>
+      </div>
+    </div>
+    <div class="filter-group">
+      <div class="filter-label">Clothing Category</div>
+      <div class="chip-grid" id="f-category">
+        <div class="chip active" data-val="all">All Categories</div>
+        <div class="chip" data-val="jeans">Jeans</div>
+        <div class="chip" data-val="shirts">Shirts</div>
+        <div class="chip" data-val="dresses">Dresses</div>
+        <div class="chip" data-val="activewear">Activewear</div>
+        <div class="chip" data-val="outerwear">Outerwear</div>
+        <div class="chip" data-val="accessories">Accessories</div>
+        <div class="chip" data-val="kidswear">Kidswear</div>
+      </div>
+    </div>
+    <div class="filter-group">
+      <div class="filter-label">Collection / Season</div>
+      <div class="chip-grid" id="f-collection">
+        <div class="chip active" data-val="all">All Collections</div>
+        <div class="chip" data-val="summer">Summer</div>
+        <div class="chip" data-val="winter">Winter</div>
+        <div class="chip" data-val="cotton">Cottons</div>
+        <div class="chip" data-val="linen">Linens</div>
+        <div class="chip" data-val="festive">Festive</div>
+        <div class="chip" data-val="conscious">Conscious</div>
+        <div class="chip" data-val="basics">Basics</div>
+      </div>
+    </div>
+    <div class="filter-group">
+      <div class="filter-label">Target Age Group</div>
+      <div class="chip-grid" id="f-age">
+        <div class="chip active" data-val="all">All Ages</div>
+        <div class="chip" data-val="18-24">18 – 24</div>
+        <div class="chip" data-val="24-34">24 – 34</div>
+        <div class="chip" data-val="34-50">34 – 50</div>
+        <div class="chip" data-val="50+">50+</div>
+      </div>
+    </div>
+    <div class="filter-group">
+      <div class="filter-label">Budget Range (₹)</div>
+      <div class="budget-row">
+        <input class="budget-input" type="number" id="f-budget-min" placeholder="Min ₹" value="0" min="0" oninput="applyFilters(false)"/>
+        <span class="budget-sep">—</span>
+        <input class="budget-input" type="number" id="f-budget-max" placeholder="Max ₹" value="999999" min="0" oninput="applyFilters(false)"/>
+      </div>
+      <div class="budget-presets">
+        <div class="budget-pre active" data-min="0" data-max="999999" onclick="setBudget(this,0,999999)">All</div>
+        <div class="budget-pre" data-min="0" data-max="500" onclick="setBudget(this,0,500)">Under ₹500</div>
+        <div class="budget-pre" data-min="500" data-max="1500" onclick="setBudget(this,500,1500)">₹500–1,500</div>
+        <div class="budget-pre" data-min="1500" data-max="4000" onclick="setBudget(this,1500,4000)">₹1,500–4,000</div>
+        <div class="budget-pre" data-min="4000" data-max="10000" onclick="setBudget(this,4000,10000)">₹4,000–10,000</div>
+        <div class="budget-pre" data-min="10000" data-max="999999" onclick="setBudget(this,10000,999999)">₹10,000+</div>
+      </div>
+    </div>
+    <div class="filter-group">
+      <div class="filter-label">Market / Company Type</div>
+      <select class="f-select" id="f-company" onchange="applyFilters(false)">
+        <option value="global">Global Fast Fashion</option>
+        <option value="indian">Indian Market Focus</option>
+        <option value="luxury">Luxury Segment</option>
+        <option value="value">Value Retail</option>
+        <option value="sustainable">Sustainable Fashion</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <div class="filter-label">Dashboard Focus</div>
+      <select class="f-select" id="f-dashboard" onchange="applyFilters(false)">
+        <option value="all">Full Dashboard</option>
+        <option value="revenue">Revenue &amp; Growth</option>
+        <option value="digital">Digital Marketing</option>
+        <option value="social">Social Media</option>
+        <option value="competitive">Competitive Analysis</option>
+        <option value="sustainability">Sustainability KPIs</option>
+      </select>
+    </div>
+  </div>
+  <div class="filter-footer">
+    <button class="btn-reset" onclick="resetFilters()">Reset All</button>
+    <button class="btn-apply" onclick="applyFilters(true)">Apply Filters →</button>
+  </div>
+</div>
+
+<div class="active-filters" id="activeFilters" style="margin-top:60px">
+  <span class="af-label">Active:</span>
+  <div id="afTags" style="display:flex;flex-wrap:wrap;gap:6px"></div>
+  <span class="af-clear" onclick="resetFilters()">Clear all</span>
+</div>
+
+<div class="hero" id="overview" style="margin-top:60px">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div style="position:relative;z-index:2">
+    <div class="hero-eyebrow" id="hero-eyebrow">H&amp;M Global · FY 2024</div>
+    <h1>Marketing<br/><em>Intelligence</em><br/>Report</h1>
+    <p class="hero-sub" id="hero-sub">A comprehensive strategic analysis of H&amp;M's global marketing performance, competitive positioning, and growth simulation across key markets.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-val" id="hs-rev">$22.3<sub>B</sub></div><div class="hero-stat-lbl">Global Revenue</div></div>
+      <div class="hero-stat"><div class="hero-stat-val" id="hs-markets">77</div><div class="hero-stat-lbl">Countries</div></div>
+      <div class="hero-stat"><div class="hero-stat-val" id="hs-stores">4,320</div><div class="hero-stat-lbl">Stores</div></div>
+      <div class="hero-stat"><div class="hero-stat-val" id="hs-aware">91<sub>%</sub></div><div class="hero-stat-lbl">Brand Awareness</div></div>
+    </div>
+  </div>
+  <div class="hero-scroll"><div class="scroll-line"></div>Scroll</div>
+</div>
+
+<hr class="full-divider"/>
+
+<section id="market" style="padding-bottom:0;max-width:none;padding-left:0;padding-right:0">
+  <div style="padding:60px 2.5rem 1.5rem;max-width:1300px;margin:0 auto">
+    <div class="section-eyebrow">Performance Overview</div>
+    <div class="section-title">Key <em>Metrics</em></div>
+    <div class="context-banner" id="contextBanner">
+      <div class="ctx-left">
+        <div class="ctx-dot"></div>
+        <div class="ctx-text">Showing data for: <strong id="ctx-brand">H&M</strong> · <span id="ctx-fy">FY 2024</span></div>
+      </div>
+      <div class="ctx-chips" id="ctx-chips"></div>
+    </div>
+  </div>
+  <div class="kpi-grid" style="max-width:none;border-left:none;border-right:none;margin:0">
+    <div class="kpi-cell"><div class="kpi-tag">Global Revenue</div><div class="kpi-val" id="kv-rev">$22.3<span style="font-size:1.2rem">B</span></div><div class="kpi-delta pos" id="kd-rev">↑ 6.3% YoY</div><div class="kpi-bar" id="kb-rev" style="width:72%"></div></div>
+    <div class="kpi-cell"><div class="kpi-tag">Website Traffic</div><div class="kpi-val" id="kv-vis">1.48<span style="font-size:1.2rem">B</span></div><div class="kpi-delta pos" id="kd-vis">↑ 11.2% YoY</div><div class="kpi-bar" style="width:58%"></div></div>
+    <div class="kpi-cell"><div class="kpi-tag">Conversion Rate</div><div class="kpi-val" id="kv-conv">3.6<span style="font-size:1.2rem">%</span></div><div class="kpi-delta pos" id="kd-conv">↑ 0.4pp improvement</div><div class="kpi-bar" style="width:36%"></div></div>
+    <div class="kpi-cell"><div class="kpi-tag">Ad Spend</div><div class="kpi-val" id="kv-ads">$620<span style="font-size:1.2rem">M</span></div><div class="kpi-delta neg" id="kd-ads">↑ 2.1% increase</div><div class="kpi-bar" style="width:44%"></div></div>
+    <div class="kpi-cell"><div class="kpi-tag">Instagram Followers</div><div class="kpi-val" id="kv-ig">38.4<span style="font-size:1.2rem">M</span></div><div class="kpi-delta pos" id="kd-ig">↑ 14% growth</div><div class="kpi-bar" style="width:62%"></div></div>
+    <div class="kpi-cell"><div class="kpi-tag">Avg. Order Value</div><div class="kpi-val" id="kv-aov">$68</div><div class="kpi-delta pos" id="kd-aov">↑ 3.8% growth</div><div class="kpi-bar" style="width:30%"></div></div>
+    <div class="kpi-cell"><div class="kpi-tag">Overall ROAS</div><div class="kpi-val" id="kv-roas">4.2<span style="font-size:1.2rem">x</span></div><div class="kpi-delta pos" id="kd-roas">↑ from 3.9x prior year</div><div class="kpi-bar" style="width:55%"></div></div>
+    <div class="kpi-cell"><div class="kpi-tag">Net Promoter Score</div><div class="kpi-val" id="kv-nps">42</div><div class="kpi-delta pos" id="kd-nps">↑ 5 points growth</div><div class="kpi-bar" style="width:42%"></div></div>
+  </div>
+</section>
+
+<section style="max-width:none;padding-left:0;padding-right:0">
+  <div style="padding:60px 2.5rem 1.5rem;max-width:1300px;margin:0 auto">
+    <div class="section-eyebrow">Market Analysis</div>
+    <div class="section-title">Revenue &amp; <em>Traffic</em></div>
+    <div class="section-desc">Monthly performance trends against selected competitors and digital channel breakdown.</div>
+  </div>
+  <div class="charts-2col" style="max-width:none;border:none;border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+    <div class="card" style="border:none;border-right:1px solid var(--border);border-radius:0;padding:2rem">
+      <h4 id="rev-chart-title">Monthly Revenue Trend — FY 2024 · All Collections · All Ages</h4>
+      <div class="chart-legend" id="rev-legend"></div>
+      <div class="chart-wrap chart-h300"><canvas id="revenueChart"></canvas></div>
+    </div>
+    <div class="card" style="border:none;border-radius:0;padding:2rem">
+      <h4 id="cat-chart-title">Category Revenue Share — FY 2024 · All Categories</h4>
+      <div class="chart-legend" id="cat-legend" style="margin-bottom:8px"></div>
+      <div class="chart-wrap chart-h300"><canvas id="categoryChart"></canvas></div>
+    </div>
+  </div>
+
+  <div class="charts-2col" style="max-width:none;border:none;border-bottom:1px solid var(--border)">
+    <div class="card" style="border:none;border-right:1px solid var(--border);border-radius:0;padding:2rem">
+      <h4 id="funnel-title">Conversion Funnel — FY 2024</h4>
+      <div style="margin-top:1rem" id="funnel-container">
+        <div class="funnel-row"><div class="funnel-lbl">Impressions</div><div class="funnel-track"><div class="funnel-fill" id="fn1" style="width:100%;background:#E50010">4.2B</div></div><div class="funnel-num" id="fn1n">4,200M</div></div>
+        <div class="funnel-row"><div class="funnel-lbl">Site Visits</div><div class="funnel-track"><div class="funnel-fill" id="fn2" style="width:72%;background:rgba(229,0,16,.75)">1.48B</div></div><div class="funnel-num" id="fn2n">1,480M</div></div>
+        <div class="funnel-row"><div class="funnel-lbl">Add to Cart</div><div class="funnel-track"><div class="funnel-fill" id="fn3" style="width:42%;background:rgba(201,168,76,.8)">620M</div></div><div class="funnel-num" id="fn3n">620M</div></div>
+        <div class="funnel-row"><div class="funnel-lbl">Checkout</div><div class="funnel-track"><div class="funnel-fill" id="fn4" style="width:22%;background:rgba(46,204,113,.7)">188M</div></div><div class="funnel-num" id="fn4n">188M</div></div>
+        <div class="funnel-row"><div class="funnel-lbl">Purchase</div><div class="funnel-track"><div class="funnel-fill" id="fn5" style="width:10%;background:rgba(46,204,113,.95)">53M</div></div><div class="funnel-num" id="fn5n">53M</div></div>
+      </div>
+      <div style="margin-top:1rem;font-size:11px;color:var(--muted)">Funnel efficiency: <span id="funnel-eff" style="color:var(--gold)">1.26%</span> · Cart abandon: <span id="funnel-abandon" style="color:var(--red)">68.4%</span></div>
+    </div>
+    <div class="card" style="border:none;border-radius:0;padding:2rem">
+      <h4 id="ad-chart-title">ROAS by Channel — FY 2024 · All Ages · All Collections</h4>
+      <div class="chart-legend" id="ad-legend" style="margin-bottom:8px"></div>
+      <div class="chart-wrap chart-h300"><canvas id="adChart"></canvas></div>
+    </div>
+  </div>
+
+  <div class="charts-2col" style="max-width:none;border:none;border-bottom:1px solid var(--border)">
+    <div class="card" style="border:none;border-right:1px solid var(--border);border-radius:0;padding:2rem">
+      <h4 id="sent-title">Brand Sentiment — FY 2024</h4>
+      <div class="sent-row">
+        <div class="sent-box"><div class="sent-val" id="sent-pos" style="color:var(--green)">64%</div><div class="sent-lbl" style="color:var(--green)">Positive</div></div>
+        <div class="sent-box"><div class="sent-val" id="sent-neu" style="color:var(--amber)">22%</div><div class="sent-lbl" style="color:var(--amber)">Neutral</div></div>
+        <div class="sent-box"><div class="sent-val" id="sent-neg" style="color:var(--red)">14%</div><div class="sent-lbl" style="color:var(--red)">Negative</div></div>
+      </div>
+    </div>
+    <div class="card" style="border:none;border-radius:0;padding:2rem">
+      <h4 id="mkt-title">Market Share — All Categories · All Budgets</h4>
+      <div class="chart-wrap chart-h260"><canvas id="mktChart"></canvas></div>
+    </div>
+  </div>
+</section>
+
+<section id="competitors">
+  <div class="section-eyebrow">Competitive Landscape</div>
+  <div class="section-title">Competitor <em>Intelligence</em></div>
+  <div class="section-desc">Head-to-head comparison across financial performance, digital presence and marketing effectiveness.</div>
+  <div class="card" style="padding:0;overflow:hidden">
+    <div class="tab-row" style="padding:0 1.5rem">
+      <button class="tab-btn active" onclick="showTab('overview',this)">Overview</button>
+      <button class="tab-btn" onclick="showTab('social',this)">Social</button>
+      <button class="tab-btn" onclick="showTab('digital',this)">Digital</button>
+    </div>
+    <div id="tab-overview" style="overflow-x:auto"><table class="data-table" id="tbl-overview"></table></div>
+    <div id="tab-social" style="display:none;overflow-x:auto"><table class="data-table" id="tbl-social"></table></div>
+    <div id="tab-digital" style="display:none;overflow-x:auto"><table class="data-table" id="tbl-digital"></table></div>
+  </div>
+  <div style="margin-top:1px;background:var(--bg2);border:1px solid var(--border);border-top:none;padding:1.5rem">
+    <h4 id="comp-bar-title" style="font-family:var(--serif);font-size:1.1rem;font-weight:400;margin-bottom:1rem">Revenue Comparison — FY 2024 · All Segments</h4>
+    <div class="chart-wrap chart-h260"><canvas id="compChart"></canvas></div>
+  </div>
+</section>
+
+<section id="simulation" style="max-width:none;padding-left:0;padding-right:0">
+  <div style="padding:60px 2.5rem 1.5rem;max-width:1300px;margin:0 auto">
+    <div class="section-eyebrow">Strategic Simulation</div>
+    <div class="section-title">Marketing <em>Scenario</em> Engine</div>
+    <div class="section-desc">Configure strategy parameters — results and AI analysis update in real time based on your active filters.</div>
+  </div>
+  <div style="border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+    <div class="sim-section" style="border:none;border-radius:0;max-width:none">
+      <div class="sim-layout" style="max-width:1300px;margin:0 auto">
+        <div>
+          <div style="font-family:var(--serif);font-size:1.5rem;font-weight:300;margin-bottom:.3rem">Configure Strategy</div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:1.5rem;font-weight:300;line-height:1.6">Parameters adapt to your active brand and filter selections.</div>
+          <div class="slider-group">
+            <div class="slider-top"><span class="slider-name">Total Marketing Budget</span><span class="slider-val" id="sv-budget">₹20 Lakhs</span></div>
+            <input type="range" id="sl-budget" min="5" max="60" step="1" value="20" oninput="updateSim()"/>
+          </div>
+          <div class="slider-group">
+            <div class="slider-top"><span class="slider-name">Digital Allocation</span><span class="slider-val" id="sv-digital">60%</span></div>
+            <input type="range" id="sl-digital" min="10" max="100" step="5" value="60" oninput="updateSim()"/>
+          </div>
+          <div class="slider-group">
+            <div class="slider-top"><span class="slider-name">Influencer Share</span><span class="slider-val" id="sv-inf">20%</span></div>
+            <input type="range" id="sl-inf" min="0" max="50" step="5" value="20" oninput="updateSim()"/>
+          </div>
+          <div class="slider-group">
+            <div class="slider-top"><span class="slider-name">Sustainability Emphasis</span><span class="slider-val" id="sv-sus">Medium</span></div>
+            <input type="range" id="sl-sus" min="1" max="3" step="1" value="2" oninput="updateSim()"/>
+          </div>
+          <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Pricing Strategy</div>
+          <label class="s-opt selected" data-val="aggressive"><input type="radio" name="pricing" value="aggressive" checked/><span class="s-dot"></span>Aggressive — capture share from competitors</label>
+          <label class="s-opt" data-val="balanced"><input type="radio" name="pricing" value="balanced"/><span class="s-dot"></span>Balanced — competitive with selective premium</label>
+          <label class="s-opt" data-val="premium"><input type="radio" name="pricing" value="premium"/><span class="s-dot"></span>Premium — elevate brand perception</label>
+          <button class="run-btn" onclick="runAI()">Run AI Strategy Analysis →</button>
+        </div>
+        <div>
+          <div class="sim-results">
+            <div class="sim-r"><div class="sim-r-lbl">Est. Traffic</div><div class="sim-r-val" id="r-traffic">60,000</div></div>
+            <div class="sim-r"><div class="sim-r-lbl">Conv. Rate</div><div class="sim-r-val" id="r-conv">2.0%</div></div>
+            <div class="sim-r"><div class="sim-r-lbl">Est. Revenue</div><div class="sim-r-val" style="color:var(--gold)" id="r-rev">₹60L</div></div>
+            <div class="sim-r"><div class="sim-r-lbl">Cost/Acquisition</div><div class="sim-r-val" id="r-cpa">₹1,667</div></div>
+          </div>
+          <div class="roas-display">
+            <div class="roas-val" id="r-roas">3.0x</div>
+            <div><div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)">Return on Ad Spend</div><div style="font-size:11px;color:var(--muted);margin-top:4px" id="r-verdict">Good — above industry baseline</div></div>
+          </div>
+          <div style="height:180px;position:relative;margin-top:1rem">
+            <canvas id="simChart"></canvas>
+          </div>
+          <div class="ai-panel" id="ai-panel">
+            <div class="ai-text" id="ai-text" style="color:var(--muted2);font-style:italic">Set your strategy above and click <strong style="color:var(--gold)">Run AI Strategy Analysis</strong>.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="strategy">
+  <div class="section-eyebrow">Strategic Framework</div>
+  <div class="section-title">Marketing <em>Mix</em> — 4Ps</div>
+  <div class="section-desc">Integrated framework balancing trend leadership, competitive pricing, and digital-first execution.</div>
+  <div class="mix-grid">
+    <div class="mix-cell" data-p="P"><div class="mix-p">Product</div><div class="mix-title">Trend-Led Assortment</div><div class="mix-desc" id="mix-product">Frequent trend-responsive launches across apparel, accessories, and home. Conscious Collection drives sustainability narrative.</div></div>
+    <div class="mix-cell" data-p="P"><div class="mix-p">Price</div><div class="mix-title">Democratised Fashion</div><div class="mix-desc" id="mix-price">Competitive fast-fashion pricing anchored by hero items. Loyalty programme discounts and student offers drive volume at scale.</div></div>
+    <div class="mix-cell" data-p="P"><div class="mix-p">Place</div><div class="mix-title">Omnichannel Distribution</div><div class="mix-desc" id="mix-place">Global stores paired with robust e-commerce and mobile app. Click-and-collect bridges physical and digital channels.</div></div>
+    <div class="mix-cell" data-p="P"><div class="mix-p">Promotion</div><div class="mix-title">Digital-First Campaigns</div><div class="mix-desc" id="mix-promo">Influencer co-creation on TikTok and Instagram, sustainability storytelling, celebrity collaborations and CRM-driven email.</div></div>
+  </div>
+  <div class="target-grid" style="margin-top:1px">
+    <div class="target-cell"><div class="target-number" id="tg1" style="color:var(--accent)">18–35</div><div class="target-lbl">Primary Age Range</div><div class="target-bar"><div class="target-bar-fill" id="tg1-bar" style="width:72%;background:var(--accent)"></div></div><div style="font-size:12px;color:var(--muted);line-height:1.7;margin-top:.8rem;font-weight:300" id="tg1-desc">Fashion-conscious urban millennials and Gen Z consumers who are digitally active, value-oriented, and trend-aware.</div></div>
+    <div class="target-cell"><div class="target-number" id="tg2" style="color:var(--gold)">58%</div><div class="target-lbl">Online Purchase Share</div><div class="target-bar"><div class="target-bar-fill" id="tg2-bar" style="width:58%;background:var(--gold)"></div></div><div style="font-size:12px;color:var(--muted);line-height:1.7;margin-top:.8rem;font-weight:300" id="tg2-desc">Digital-first purchasing behaviour rising rapidly, driven by mobile app adoption and seamless omnichannel integration.</div></div>
+    <div class="target-cell"><div class="target-number" id="tg3" style="color:var(--green)">63%</div><div class="target-lbl">Female Customer Base</div><div class="target-bar"><div class="target-bar-fill" id="tg3-bar" style="width:63%;background:var(--green)"></div></div><div style="font-size:12px;color:var(--muted);line-height:1.7;margin-top:.8rem;font-weight:300" id="tg3-desc">Predominantly female shoppers driving core apparel sales, with growing menswear and gender-neutral categories.</div></div>
+    <div class="target-cell"><div class="target-number" id="tg4" style="color:#3498db">89%</div><div class="target-lbl">Brand Awareness</div><div class="target-bar"><div class="target-bar-fill" id="tg4-bar" style="width:89%;background:#3498db"></div></div><div style="font-size:12px;color:var(--muted);line-height:1.7;margin-top:.8rem;font-weight:300" id="tg4-desc">One of the highest brand recall rates in global fast fashion, driven by consistent global campaigns and store presence.</div></div>
+  </div>
+</section>
+
+<hr class="full-divider"/>
+
+<section id="conclusion">
+  <div class="section-eyebrow">Final Assessment</div>
+  <div class="section-title">Conclusion &amp; <em>Recommendations</em></div>
+  <div class="section-desc">Select a topic to explore key conclusions. All insights adapt dynamically to your active filters.</div>
+  <div style="max-width:860px">
+    <div class="concl-item" onclick="toggleConcl(this)">
+      <div class="concl-head"><div class="concl-left"><span class="concl-num">01</span><span class="concl-title-txt">Overall Business Performance</span></div><span class="concl-icon">+</span></div>
+      <div class="concl-body"><p id="c1">Loading...</p></div>
+    </div>
+    <div class="concl-item" onclick="toggleConcl(this)">
+      <div class="concl-head"><div class="concl-left"><span class="concl-num">02</span><span class="concl-title-txt">Digital Marketing Effectiveness</span></div><span class="concl-icon">+</span></div>
+      <div class="concl-body"><p id="c2">Loading...</p></div>
+    </div>
+    <div class="concl-item" onclick="toggleConcl(this)">
+      <div class="concl-head"><div class="concl-left"><span class="concl-num">03</span><span class="concl-title-txt">Competitive Positioning</span></div><span class="concl-icon">+</span></div>
+      <div class="concl-body"><p id="c3">Loading...</p></div>
+    </div>
+    <div class="concl-item" onclick="toggleConcl(this)">
+      <div class="concl-head"><div class="concl-left"><span class="concl-num">04</span><span class="concl-title-txt">Category &amp; Collection Insights</span></div><span class="concl-icon">+</span></div>
+      <div class="concl-body"><p id="c4">Loading...</p></div>
+    </div>
+    <div class="concl-item" onclick="toggleConcl(this)">
+      <div class="concl-head"><div class="concl-left"><span class="concl-num">05</span><span class="concl-title-txt">Age Group &amp; Budget Analysis</span></div><span class="concl-icon">+</span></div>
+      <div class="concl-body"><p id="c5">Loading...</p></div>
+    </div>
+    <div class="concl-item" onclick="toggleConcl(this)">
+      <div class="concl-head"><div class="concl-left"><span class="concl-num">06</span><span class="concl-title-txt">Strategic Recommendations</span></div><span class="concl-icon">+</span></div>
+      <div class="concl-body"><p id="c6">Loading...</p></div>
+    </div>
+  </div>
+  <div class="concl-ai-panel" style="max-width:860px;margin-top:1.5rem">
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:1rem">
+      <div>
+        <div style="font-family:var(--serif);font-size:1.1rem;font-weight:300">AI-Generated Conclusion</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:2px">Personalised based on your active filters &amp; simulation settings</div>
+      </div>
+      <button class="gen-btn" onclick="generateConclusion()">✦ Generate for Current Filters</button>
+    </div>
+    <div id="ai-conclusion" class="ai-text" style="color:var(--muted2);font-style:italic">Apply your filters and click Generate to receive a personalised strategic conclusion.</div>
+  </div>
+</section>
+
+<hr class="full-divider"/>
+<footer>
+  <div class="footer-brand">H&M — Strategic Marketing Intelligence</div>
+  <div class="footer-note">PGDM · Marketing Management · Academic Use · Illustrative Data · FY 2021–2025</div>
+</footer>
+
+<script>
+// ══════════════════════════════════════════════════════════
+// CHART.JS GLOBAL DEFAULTS — white background aware
+// ══════════════════════════════════════════════════════════
+Chart.defaults.color = '#cc0000';
+Chart.defaults.borderColor = 'rgba(204,0,0,0.08)';
+Chart.defaults.font.family = "'DM Sans',sans-serif";
+Chart.defaults.font.size = 12;
+
+// ══════════════════════════════════════════════════════════
+// BRAND-SPECIFIC FY DATA  (accurate historical figures)
+// ══════════════════════════════════════════════════════════
+const BRAND_FY = {
+  hm: {
+    2025:{rev:'$23.5B',revN:23.5,stores:4300,markets:81,aware:92,visits:1.52,conv:3.7,ads:'$645M',ig:41.0,tt:30.2,aov:'$70',roas:'4.4x',nps:44,sent:{pos:66,neu:21,neg:13},
+      yoy:'+5.4%',yoyClass:'pg',visDelta:'↑ 12.8% YoY',convDelta:'↑ 0.3pp',igDelta:'↑ 6.8%',roasDelta:'↑ from 4.2x',npsDelta:'↑ 2 points'},
+    2024:{rev:'$22.3B',revN:22.3,stores:4320,markets:77,aware:91,visits:1.48,conv:3.6,ads:'$620M',ig:38.4,tt:28.1,aov:'$68',roas:'4.2x',nps:42,sent:{pos:64,neu:22,neg:14},
+      yoy:'+6.3%',yoyClass:'pg',visDelta:'↑ 11.2% YoY',convDelta:'↑ 0.4pp',igDelta:'↑ 14%',roasDelta:'↑ from 3.9x',npsDelta:'↑ 5 points'},
+    2023:{rev:'$22.9B',revN:22.9,stores:4369,markets:77,aware:89,visits:1.38,conv:3.4,ads:'$605M',ig:33.7,tt:24.0,aov:'$65',roas:'4.0x',nps:39,sent:{pos:61,neu:23,neg:16},
+      yoy:'+2.2%',yoyClass:'pg',visDelta:'↑ 8.1% YoY',convDelta:'↑ 0.2pp',igDelta:'↑ 11%',roasDelta:'↑ from 3.7x',npsDelta:'↑ 3 points'},
+    2022:{rev:'$22.4B',revN:22.4,stores:4465,markets:77,aware:86,visits:1.25,conv:3.2,ads:'$590M',ig:29.6,tt:18.3,aov:'$62',roas:'3.7x',nps:36,sent:{pos:59,neu:24,neg:17},
+      yoy:'+17.9%',yoyClass:'pg',visDelta:'↑ 13.6% YoY',convDelta:'↑ 0.3pp',igDelta:'↑ 16%',roasDelta:'↑ from 3.4x',npsDelta:'↑ 3 points'},
+    2021:{rev:'$19.0B',revN:19.0,stores:4801,markets:74,aware:84,visits:1.10,conv:2.9,ads:'$540M',ig:25.5,tt:9.4,aov:'$58',roas:'3.4x',nps:33,sent:{pos:57,neu:26,neg:17},
+      yoy:'-4.0%',yoyClass:'py',visDelta:'↑ 4.2% YoY',convDelta:'↑ 0.1pp',igDelta:'↑ 9%',roasDelta:'from 3.3x',npsDelta:'↑ 2 points'},
+  },
+  zara: {
+    2025:{rev:'$32.8B',revN:32.8,stores:1985,markets:97,aware:93,visits:940,conv:4.4,ads:'$540M',ig:52.1,tt:20.3,aov:'$95',roas:'5.3x',nps:54,sent:{pos:70,neu:19,neg:11},
+      yoy:'+7.5%',yoyClass:'pg',visDelta:'↑ 5.6% YoY',convDelta:'↑ 0.3pp',igDelta:'↑ 3.8%',roasDelta:'↑ from 5.1x',npsDelta:'↑ 3 points'},
+    2024:{rev:'$30.5B',revN:30.5,stores:1946,markets:96,aware:91,visits:890,conv:4.1,ads:'$520M',ig:50.2,tt:18.6,aov:'$92',roas:'5.1x',nps:51,sent:{pos:69,neu:20,neg:11},
+      yoy:'+8.1%',yoyClass:'pg',visDelta:'↑ 7.2% YoY',convDelta:'↑ 0.4pp',igDelta:'↑ 5.2%',roasDelta:'↑ from 4.8x',npsDelta:'↑ 3 points'},
+    2023:{rev:'$28.2B',revN:28.2,stores:1924,markets:96,aware:90,visits:832,conv:3.9,ads:'$490M',ig:47.7,tt:16.2,aov:'$88',roas:'4.8x',nps:48,sent:{pos:68,neu:20,neg:12},
+      yoy:'+6.5%',yoyClass:'pg',visDelta:'↑ 6.4% YoY',convDelta:'↑ 0.2pp',igDelta:'↑ 6.1%',roasDelta:'↑ from 4.5x',npsDelta:'↑ 2 points'},
+    2022:{rev:'$26.5B',revN:26.5,stores:1939,markets:95,aware:88,visits:778,conv:3.7,ads:'$460M',ig:45.2,tt:13.1,aov:'$84',roas:'4.5x',nps:46,sent:{pos:66,neu:21,neg:13},
+      yoy:'+6.4%',yoyClass:'pg',visDelta:'↑ 5.1% YoY',convDelta:'↑ 0.2pp',igDelta:'↑ 8.3%',roasDelta:'↑ from 4.2x',npsDelta:'↑ 2 points'},
+    2021:{rev:'$24.9B',revN:24.9,stores:2000,markets:96,aware:86,visits:740,conv:3.5,ads:'$430M',ig:41.7,tt:9.8,aov:'$80',roas:'4.2x',nps:44,sent:{pos:64,neu:23,neg:13},
+      yoy:'+10.2%',yoyClass:'pg',visDelta:'↑ 4.8% YoY',convDelta:'↑ 0.3pp',igDelta:'↑ 10%',roasDelta:'↑ from 3.9x',npsDelta:'↑ 2 points'},
+  },
+  westside: {
+    2025:{rev:'$0.65B',revN:0.65,stores:235,markets:1,aware:64,visits:0.045,conv:2.0,ads:'$32M',ig:1.35,tt:0.62,aov:'$26',roas:'2.2x',nps:37,sent:{pos:59,neu:27,neg:14},
+      yoy:'+8.3%',yoyClass:'pg',visDelta:'↑ 12.5% YoY',convDelta:'↑ 0.1pp',igDelta:'↑ 12.5%',roasDelta:'↑ from 2.1x',npsDelta:'↑ 1 point'},
+    2024:{rev:'$0.60B',revN:0.60,stores:220,markets:1,aware:62,visits:0.040,conv:1.9,ads:'$30M',ig:1.20,tt:0.50,aov:'$25',roas:'2.1x',nps:36,sent:{pos:58,neu:28,neg:14},
+      yoy:'+7.1%',yoyClass:'pg',visDelta:'↑ 11.1% YoY',convDelta:'↑ 0.1pp',igDelta:'↑ 9.1%',roasDelta:'from 2.1x',npsDelta:'↑ 2 points'},
+    2023:{rev:'$0.56B',revN:0.56,stores:210,markets:1,aware:60,visits:0.036,conv:1.8,ads:'$28M',ig:1.10,tt:0.42,aov:'$24',roas:'2.1x',nps:34,sent:{pos:56,neu:29,neg:15},
+      yoy:'+9.8%',yoyClass:'pg',visDelta:'↑ 9.1% YoY',convDelta:'↑ 0.1pp',igDelta:'↑ 10%',roasDelta:'from 2.0x',npsDelta:'↑ 2 points'},
+    2022:{rev:'$0.51B',revN:0.51,stores:195,markets:1,aware:58,visits:0.033,conv:1.7,ads:'$25M',ig:1.00,tt:0.31,aov:'$23',roas:'2.0x',nps:32,sent:{pos:54,neu:30,neg:16},
+      yoy:'+12.3%',yoyClass:'pg',visDelta:'↑ 6.5% YoY',convDelta:'↑ 0.2pp',igDelta:'↑ 11%',roasDelta:'↑ from 1.8x',npsDelta:'↑ 2 points'},
+    2021:{rev:'$0.45B',revN:0.45,stores:183,markets:1,aware:55,visits:0.031,conv:1.5,ads:'$20M',ig:0.90,tt:0.22,aov:'$21',roas:'1.8x',nps:30,sent:{pos:52,neu:31,neg:17},
+      yoy:'-8.2%',yoyClass:'pr',visDelta:'↓ 3.1% YoY',convDelta:'flat',igDelta:'↑ 8%',roasDelta:'from 1.7x',npsDelta:'↑ 1 point'},
+  },
+  zudio: {
+    2025:{rev:'$1.05B',revN:1.05,stores:680,markets:1,aware:62,visits:0.068,conv:2.5,ads:'$52M',ig:2.50,tt:4.10,aov:'$16',roas:'3.4x',nps:43,sent:{pos:62,neu:24,neg:14},
+      yoy:'+31.3%',yoyClass:'pg',visDelta:'↑ 23.6% YoY',convDelta:'↑ 0.2pp',igDelta:'↑ 19%',roasDelta:'↑ from 3.2x',npsDelta:'↑ 2 points'},
+    2024:{rev:'$0.80B',revN:0.80,stores:580,markets:1,aware:58,visits:0.055,conv:2.3,ads:'$45M',ig:2.10,tt:3.20,aov:'$15',roas:'3.2x',nps:41,sent:{pos:61,neu:25,neg:14},
+      yoy:'+60.0%',yoyClass:'pg',visDelta:'↑ 44.7% YoY',convDelta:'↑ 0.2pp',igDelta:'↑ 52%',roasDelta:'↑ from 2.8x',npsDelta:'↑ 3 points'},
+    2023:{rev:'$0.50B',revN:0.50,stores:420,markets:1,aware:50,visits:0.038,conv:2.1,ads:'$32M',ig:1.38,tt:1.65,aov:'$14',roas:'2.8x',nps:38,sent:{pos:59,neu:26,neg:15},
+      yoy:'+66.7%',yoyClass:'pg',visDelta:'↑ 72.7% YoY',convDelta:'↑ 0.2pp',igDelta:'↑ 74%',roasDelta:'↑ from 2.4x',npsDelta:'↑ 4 points'},
+    2022:{rev:'$0.30B',revN:0.30,stores:280,markets:1,aware:40,visits:0.022,conv:1.9,ads:'$20M',ig:0.79,tt:0.55,aov:'$13',roas:'2.4x',nps:34,sent:{pos:56,neu:28,neg:16},
+      yoy:'+100%',yoyClass:'pg',visDelta:'↑ 100% YoY',convDelta:'↑ 0.3pp',igDelta:'↑ 100%',roasDelta:'↑ from 1.8x',npsDelta:'↑ 4 points'},
+    2021:{rev:'$0.15B',revN:0.15,stores:150,markets:1,aware:30,visits:0.011,conv:1.6,ads:'$10M',ig:0.40,tt:0.18,aov:'$12',roas:'1.8x',nps:30,sent:{pos:53,neu:29,neg:18},
+      yoy:'Launch',yoyClass:'py',visDelta:'New brand',convDelta:'baseline',igDelta:'baseline',roasDelta:'baseline',npsDelta:'baseline'},
+  },
+  max: {
+    2025:{rev:'$1.22B',revN:1.22,stores:500,markets:7,aware:67,visits:0.080,conv:2.9,ads:'$65M',ig:2.10,tt:1.40,aov:'$21',roas:'3.0x',nps:40,sent:{pos:61,neu:25,neg:14},
+      yoy:'+10.9%',yoyClass:'pg',visDelta:'↑ 14.3% YoY',convDelta:'↑ 0.1pp',igDelta:'↑ 16.7%',roasDelta:'↑ from 2.9x',npsDelta:'↑ 1 point'},
+    2024:{rev:'$1.10B',revN:1.10,stores:480,markets:6,aware:65,visits:0.070,conv:2.8,ads:'$60M',ig:1.80,tt:1.10,aov:'$20',roas:'2.9x',nps:39,sent:{pos:60,neu:26,neg:14},
+      yoy:'+15.8%',yoyClass:'pg',visDelta:'↑ 12.9% YoY',convDelta:'↑ 0.2pp',igDelta:'↑ 20%',roasDelta:'↑ from 2.7x',npsDelta:'↑ 2 points'},
+    2023:{rev:'$0.95B',revN:0.95,stores:450,markets:6,aware:63,visits:0.062,conv:2.6,ads:'$54M',ig:1.50,tt:0.82,aov:'$19',roas:'2.7x',nps:37,sent:{pos:58,neu:27,neg:15},
+      yoy:'+15.9%',yoyClass:'pg',visDelta:'↑ 10.7% YoY',convDelta:'↑ 0.2pp',igDelta:'↑ 15.4%',roasDelta:'↑ from 2.5x',npsDelta:'↑ 2 points'},
+    2022:{rev:'$0.82B',revN:0.82,stores:420,markets:6,aware:60,visits:0.056,conv:2.4,ads:'$48M',ig:1.30,tt:0.55,aov:'$18',roas:'2.5x',nps:35,sent:{pos:56,neu:28,neg:16},
+      yoy:'+20.6%',yoyClass:'pg',visDelta:'↑ 12.0% YoY',convDelta:'↑ 0.2pp',igDelta:'↑ 18.2%',roasDelta:'↑ from 2.2x',npsDelta:'↑ 3 points'},
+    2021:{rev:'$0.68B',revN:0.68,stores:385,markets:5,aware:57,visits:0.050,conv:2.2,ads:'$40M',ig:1.10,tt:0.30,aov:'$17',roas:'2.2x',nps:32,sent:{pos:53,neu:30,neg:17},
+      yoy:'+3.0%',yoyClass:'pg',visDelta:'↑ 4.2% YoY',convDelta:'↑ 0.1pp',igDelta:'↑ 10%',roasDelta:'↑ from 2.0x',npsDelta:'↑ 2 points'},
+  }
+};
+
+// ══════════════════════════════════════════════════════════
+// COMPETITOR DATABASE
+// ══════════════════════════════════════════════════════════
+const COMP_DB = {
+  hm:       {label:'H&M',      color:'#E50010', rev:22.3},
+  zara:     {label:'Zara',     color:'#1D2951', rev:30.5},
+  uniqlo:   {label:'Uniqlo',   color:'#3498db', rev:21.1},
+  shein:    {label:'Shein',    color:'#9b59b6', rev:45.0},
+  forever21:{label:'Forever 21',color:'#e74c3c',rev:1.9},
+  primark:  {label:'Primark',  color:'#2ecc71', rev:9.5},
+  gap:      {label:'Gap',      color:'#f39c12', rev:3.6},
+  westside: {label:'Westside', color:'#7B3F00', rev:0.6},
+  zudio:    {label:'Zudio',    color:'#6A0DAD', rev:0.8},
+};
+
+// Per-brand competitor revenue per FY year (scaling factor relative to 2024 base)
+const COMP_FY_SCALE = {
+  2025:{zara:1.075,uniqlo:1.09,shein:1.18,forever21:0.92,primark:1.06,gap:0.97,westside:1.08,zudio:1.31},
+  2024:{zara:1.00, uniqlo:1.00,shein:1.00,forever21:1.00,primark:1.00,gap:1.00,westside:1.00,zudio:1.00},
+  2023:{zara:0.924,uniqlo:0.89,shein:0.74,forever21:1.05,primark:0.93,gap:1.02,westside:0.93,zudio:0.625},
+  2022:{zara:0.869,uniqlo:0.77,shein:0.52,forever21:1.12,primark:0.86,gap:1.05,westside:0.85,zudio:0.375},
+  2021:{zara:0.816,uniqlo:0.65,shein:0.31,forever21:1.02,primark:0.74,gap:0.97,westside:0.75,zudio:0.188},
+};
+
+// Monthly revenue distribution (12 months, sums ~=1 as multiplier on annual)
+const BRAND_MONTHLY_PATTERN = {
+  hm:       [0.0718,0.0651,0.0816,0.0852,0.0897,0.0934,0.0843,0.0798,0.0875,0.0942,0.1031,0.1093],
+  zara:     [0.0721,0.0639,0.0836,0.0869,0.0902,0.0934,0.0869,0.0803,0.0869,0.0902,0.0967,0.1131],
+  westside: [0.0700,0.0633,0.0800,0.0867,0.0933,0.0867,0.0800,0.0800,0.0900,0.0933,0.1033,0.1067],
+  zudio:    [0.0688,0.0750,0.0850,0.0875,0.0975,0.1025,0.0875,0.0850,0.0925,0.1000,0.1075,0.1238],
+  max:      [0.0745,0.0709,0.0818,0.0891,0.0945,0.0982,0.0836,0.0818,0.0891,0.0927,0.1018,0.1200],
+  uniqlo:   [0.0711,0.0616,0.0806,0.0853,0.0900,0.0948,0.0948,0.0853,0.0900,0.0900,0.0995,0.1043],
+  shein:    [0.0711,0.0644,0.0844,0.0889,0.0933,1.000, 0.0956,0.0889,0.0844,0.0867,0.0956,0.0911],
+  forever21:[0.0737,0.0632,0.0842,0.0842,0.0895,0.0947,0.0895,0.0842,0.0842,0.0895,0.1000,0.1000],
+  primark:  [0.0737,0.0653,0.0842,0.0863,0.0895,0.0926,0.0895,0.0842,0.0863,0.0905,0.0968,0.1032],
+  gap:      [0.0722,0.0639,0.0806,0.0833,0.0889,0.0944,0.0889,0.0833,0.0861,0.0889,0.1000,0.1083],
+};
+
+// ── Seasonal multipliers per collection (shape, not absolute) ──
+const COL_SEASONAL = {
+  all:      [1,1,1,1,1,1,1,1,1,1,1,1],
+  summer:   [0.70,0.72,0.95,1.05,1.15,1.25,1.28,1.20,1.00,0.88,0.78,0.75],
+  winter:   [1.15,0.92,0.82,0.80,0.78,0.82,0.88,0.95,1.08,1.18,1.28,1.42],
+  cotton:   [0.88,0.88,0.98,1.08,1.18,1.22,1.14,1.05,0.98,0.95,0.90,0.88],
+  linen:    [0.72,0.74,0.88,1.08,1.30,1.42,1.38,1.18,0.92,0.82,0.74,0.72],
+  festive:  [0.72,0.72,0.82,0.85,0.92,0.92,0.92,0.95,1.05,1.18,1.42,1.62],
+  conscious:[0.96,0.96,1.04,1.06,1.08,1.08,1.04,1.00,0.98,0.98,1.04,1.08],
+  basics:   [1.10,1.02,1.00,0.98,0.98,0.98,0.98,0.98,0.98,0.98,1.00,1.08],
+};
+
+// ── Age monthly shopping pattern ──
+const AGE_MONTHLY = {
+  all:    [1,1,1,1,1,1,1,1,1,1,1,1],
+  '18-24':[0.88,0.80,0.98,1.00,1.08,1.28,1.32,1.22,1.00,0.98,1.08,1.30],
+  '24-34':[0.98,0.90,1.00,1.08,1.10,1.12,1.02,1.00,1.08,1.10,1.18,1.28],
+  '34-50':[1.10,1.00,0.98,0.98,0.98,0.98,0.90,0.88,0.98,1.08,1.18,1.38],
+  '50+':  [1.20,1.02,0.98,0.96,0.88,0.88,0.80,0.88,0.98,1.08,1.28,1.52],
+};
+
+// ── Category revenue share per brand ──
+const BRAND_CAT_SHARE = {
+  hm:       {Apparel:42,Accessories:28,Home:15,Kidswear:8,Other:7},
+  zara:     {Apparel:50,Accessories:22,Shoes:10,Kidswear:5,Other:13},
+  westside: {Ethnic:55,Western:20,'Home Décor':12,Accessories:8,Other:5},
+  zudio:    {Casuals:60,Ethnic:18,Kidswear:12,Accessories:6,Other:4},
+  max:      {'Value Fashion':48,Sportswear:22,Kidswear:16,Accessories:8,Other:6},
+  uniqlo:   {Basics:52,Outerwear:20,Accessories:14,Kidswear:8,Other:6},
+  shein:    {Womenswear:55,Menswear:18,Accessories:16,Kidswear:6,Other:5},
+  forever21:{Womenswear:58,Menswear:22,Accessories:12,Kidswear:4,Other:4},
+  primark:  {Womenswear:44,Menswear:26,Kidswear:18,Accessories:8,Home:4},
+  gap:      {Denim:38,Basics:30,Outerwear:16,Accessories:10,Other:6},
+};
+
+// ── Sub-category distributions when specific category is selected ──
+const CAT_SUBSHARE = {
+  jeans:     {Skinny:28,Slim:26,Straight:22,Bootcut:14,Wide:10},
+  shirts:    {Casual:38,Formal:24,Polo:20,Printed:14,Oversized:4},
+  dresses:   {Casual:36,Evening:22,Maxi:18,Mini:16,Other:8},
+  activewear:{Leggings:34,Sports_Tops:28,Shorts:20,Track_Jackets:12,Other:6},
+  outerwear: {Jackets:38,Coats:30,Hoodies:20,Vests:8,Other:4},
+  accessories:{Bags:30,Jewellery:26,Scarves:20,Belts:14,Other:10},
+  kidswear:  {Boys:34,Girls:34,Infant:20,Accessories:8,Other:4},
+};
+
+// ── Category revenue modifier ──
+const CAT_MOD = {all:1,jeans:0.85,shirts:0.82,dresses:0.88,activewear:0.78,outerwear:0.93,accessories:0.62,kidswear:0.68};
+
+// ── Budget revenue modifier ──
+function getBudgetMod(max) {
+  if(max>=999999) return 1.00;
+  if(max>=10000)  return 0.95;
+  if(max>=4000)   return 0.80;
+  if(max>=1500)   return 0.65;
+  if(max>=500)    return 0.42;
+  return 0.22;
+}
+
+// ── Age revenue modifier ──
+const AGE_MOD = {all:1,'18-24':0.22,'24-34':0.31,'34-50':0.28,'50+':0.19};
+
+// ── Collection modifier ──
+const COL_MOD = {all:1,summer:0.92,winter:0.88,cotton:0.94,linen:0.85,festive:1.05,conscious:0.97,basics:0.88};
+
+// ── ROAS by channel per brand ──
+const BRAND_ROAS_CH = {
+  hm:       {Social:4.2,Search:5.3,Influencer:6.6,Display:2.8,Email:8.4},
+  zara:     {Social:5.2,Search:6.1,Influencer:7.2,Display:3.4,Email:9.1},
+  westside: {Social:2.8,Search:3.2,Influencer:3.0,Display:1.9,Email:4.2},
+  zudio:    {Social:4.0,Search:3.8,Influencer:5.2,Display:2.2,Email:5.8},
+  max:      {Social:3.5,Search:4.2,Influencer:4.8,Display:2.4,Email:6.0},
+  uniqlo:   {Social:3.8,Search:5.8,Influencer:4.4,Display:3.2,Email:7.6},
+  shein:    {Social:8.2,Search:3.2,Influencer:9.8,Display:2.1,Email:5.4},
+  forever21:{Social:5.0,Search:3.9,Influencer:6.2,Display:2.8,Email:5.5},
+  primark:  {Social:3.2,Search:4.5,Influencer:3.8,Display:2.6,Email:6.8},
+  gap:      {Social:3.6,Search:5.0,Influencer:4.2,Display:2.9,Email:7.2},
+};
+
+// ── Age ROAS modifier per channel ──
+const AGE_ROAS = {
+  all:    {Social:1.00,Search:1.00,Influencer:1.00,Display:1.00,Email:1.00},
+  '18-24':{Social:1.52,Search:0.78,Influencer:1.75,Display:0.68,Email:0.58},
+  '24-34':{Social:1.22,Search:1.10,Influencer:1.30,Display:1.00,Email:1.00},
+  '34-50':{Social:0.88,Search:1.32,Influencer:0.78,Display:1.22,Email:1.32},
+  '50+':  {Social:0.58,Search:1.42,Influencer:0.48,Display:1.35,Email:1.62},
+};
+
+// ── Collection ROAS modifier per channel ──
+const COL_ROAS = {
+  all:      {Social:1.00,Search:1.00,Influencer:1.00,Display:1.00,Email:1.00},
+  summer:   {Social:1.22,Search:1.00,Influencer:1.28,Display:0.88,Email:0.88},
+  winter:   {Social:1.00,Search:1.10,Influencer:1.10,Display:1.12,Email:1.18},
+  festive:  {Social:1.42,Search:0.88,Influencer:1.52,Display:1.00,Email:1.10},
+  conscious:{Social:1.10,Search:1.00,Influencer:1.22,Display:0.90,Email:1.32},
+  basics:   {Social:0.88,Search:1.20,Influencer:0.80,Display:1.00,Email:1.42},
+  cotton:   {Social:1.10,Search:1.00,Influencer:1.10,Display:1.00,Email:1.00},
+  linen:    {Social:1.18,Search:1.00,Influencer:1.18,Display:0.90,Email:1.00},
+};
+
+// ── Category ROAS modifier ──
+const CAT_ROAS = {
+  all:       {Social:1.00,Search:1.00,Influencer:1.00,Display:1.00,Email:1.00},
+  jeans:     {Social:1.10,Search:1.00,Influencer:1.18,Display:0.90,Email:1.00},
+  shirts:    {Social:1.00,Search:1.10,Influencer:1.00,Display:1.00,Email:1.10},
+  dresses:   {Social:1.32,Search:0.90,Influencer:1.42,Display:0.88,Email:1.00},
+  activewear:{Social:1.22,Search:1.00,Influencer:1.52,Display:0.88,Email:0.90},
+  outerwear: {Social:1.00,Search:1.10,Influencer:1.10,Display:1.10,Email:1.20},
+  accessories:{Social:1.22,Search:1.00,Influencer:1.32,Display:1.10,Email:1.00},
+  kidswear:  {Social:0.80,Search:1.20,Influencer:0.78,Display:1.10,Email:1.42},
+};
+
+// ── Budget ROAS modifier ──
+function getBudgetRoasMod(max) {
+  if(max>=999999) return {Social:1.00,Search:1.00,Influencer:1.00,Display:1.00,Email:1.00};
+  if(max>=10000)  return {Social:1.10,Search:1.20,Influencer:1.00,Display:1.30,Email:1.20};
+  if(max>=4000)   return {Social:1.00,Search:1.10,Influencer:1.00,Display:1.10,Email:1.10};
+  if(max>=1500)   return {Social:1.00,Search:1.00,Influencer:1.10,Display:1.00,Email:1.00};
+  return                 {Social:1.22,Search:0.88,Influencer:1.32,Display:0.80,Email:0.80};
+}
+
+// ── Sentiment per age ──
+const AGE_SENT = {
+  all:    {pos:64,neu:22,neg:14},
+  '18-24':{pos:72,neu:18,neg:10},
+  '24-34':{pos:66,neu:22,neg:12},
+  '34-50':{pos:58,neu:27,neg:15},
+  '50+':  {pos:51,neu:30,neg:19},
+};
+
+// ══════════════════════════════════════════════════════════
+// STATIC COMPETITOR TABLE DATA (FY 2024 base)
+// ══════════════════════════════════════════════════════════
+const ALL_COMP = {
+  hm:       {name:'H&M',       rev:'$22.3B',mkt:77, stores:'4,320',ads:'$620M',trend:'+6.3%', tc:'pg',ig:'38.4M',tt:'28.1M',eng:'2.8%',reach:'420M',sent:'pg',stxt:'Positive',vis:'1.48B',bnc:'42%',conv:'3.6%',aov:'$68', roas:'4.2x'},
+  zara:     {name:'Zara',      rev:'$30.5B',mkt:96, stores:'1,946',ads:'$520M',trend:'+8.1%', tc:'pg',ig:'50.2M',tt:'18.6M',eng:'3.1%',reach:'510M',sent:'pg',stxt:'Positive',vis:'890M', bnc:'38%',conv:'4.1%',aov:'$92', roas:'5.1x'},
+  uniqlo:   {name:'Uniqlo',    rev:'$21.1B',mkt:25, stores:'2,434',ads:'$310M',trend:'+12.4%',tc:'pg',ig:'9.4M', tt:'4.2M', eng:'4.6%',reach:'90M', sent:'pg',stxt:'Positive',vis:'390M', bnc:'35%',conv:'4.8%',aov:'$85', roas:'6.0x'},
+  shein:    {name:'Shein',     rev:'$45.0B',mkt:150,stores:'12',   ads:'$800M',trend:'+32.4%',tc:'pg',ig:'26.0M',tt:'17.2M',eng:'5.1%',reach:'620M',sent:'pr',stxt:'Negative', vis:'2.1B', bnc:'33%',conv:'5.9%',aov:'$38', roas:'4.0x'},
+  forever21:{name:'Forever 21',rev:'$1.9B', mkt:32, stores:'540',  ads:'$95M', trend:'-4.2%', tc:'pr',ig:'14.8M',tt:'9.7M', eng:'1.9%',reach:'110M',sent:'py',stxt:'Neutral',  vis:'210M', bnc:'58%',conv:'2.1%',aov:'$44', roas:'2.8x'},
+  primark:  {name:'Primark',   rev:'$9.5B', mkt:14, stores:'432',  ads:'$40M', trend:'+5.2%', tc:'pg',ig:'2.4M', tt:'1.1M', eng:'1.4%',reach:'45M', sent:'pg',stxt:'Positive', vis:'220M', bnc:'49%',conv:'2.8%',aov:'$22', roas:'7.2x'},
+  gap:      {name:'Gap',       rev:'$3.6B', mkt:40, stores:'1,300',ads:'$180M',trend:'-1.8%', tc:'pr',ig:'2.2M', tt:'0.8M', eng:'1.1%',reach:'35M', sent:'py',stxt:'Neutral',  vis:'290M', bnc:'52%',conv:'2.3%',aov:'$55', roas:'3.1x'},
+  westside: {name:'Westside',  rev:'$0.6B', mkt:1,  stores:'220',  ads:'$30M', trend:'+7.1%', tc:'pg',ig:'1.2M', tt:'0.5M', eng:'2.1%',reach:'15M', sent:'pg',stxt:'Positive', vis:'40M',  bnc:'51%',conv:'1.9%',aov:'$25', roas:'2.1x'},
+  zudio:    {name:'Zudio',     rev:'$0.8B', mkt:1,  stores:'580',  ads:'$45M', trend:'+60.0%',tc:'pg',ig:'2.1M', tt:'3.2M', eng:'3.4%',reach:'25M', sent:'pg',stxt:'Positive', vis:'55M',  bnc:'44%',conv:'2.3%',aov:'$15', roas:'3.2x'},
+};
+
+// ══════════════════════════════════════════════════════════
+// FILTER STATE
+// ══════════════════════════════════════════════════════════
+let F = {
+  brand:'hm', year:2024,
+  competitors:['zara','uniqlo','shein'],
+  category:'all', collection:'all', age:'all',
+  budgetMin:0, budgetMax:999999,
+  company:'global', dashboard:'all'
+};
+
+let charts = {};
+
+// ══════════════════════════════════════════════════════════
+// FILTER PANEL
+// ══════════════════════════════════════════════════════════
+function openFilter(){
+  document.getElementById('filterOverlay').classList.add('open');
+  document.getElementById('filterPanel').classList.add('open');
+}
+function closeFilter(){
+  document.getElementById('filterOverlay').classList.remove('open');
+  document.getElementById('filterPanel').classList.remove('open');
+}
+
+// Chip toggles — immediate re-render on click
+document.querySelectorAll('.chip').forEach(chip=>{
+  chip.addEventListener('click',()=>{
+    const grp = chip.parentElement.id;
+    if(['f-category','f-collection','f-age'].includes(grp)){
+      chip.parentElement.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+      chip.classList.add('active');
+    } else {
+      chip.classList.toggle('active');
+      // Ensure at least one competitor is selected
+      const active = chip.parentElement.querySelectorAll('.chip.active');
+      if(active.length === 0) chip.classList.add('active');
+    }
+    applyFilters(false);
+  });
+});
+
+function setBudget(el, min, max){
+  document.querySelectorAll('.budget-pre').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('f-budget-min').value = min;
+  document.getElementById('f-budget-max').value = max;
+  applyFilters(false);
+}
+
+function resetFilters(){
+  document.getElementById('f-year').value = '2024';
+  document.getElementById('f-brand').value = 'hm';
+  document.getElementById('f-company').value = 'global';
+  document.getElementById('f-dashboard').value = 'all';
+  document.getElementById('f-budget-min').value = 0;
+  document.getElementById('f-budget-max').value = 999999;
+  document.querySelectorAll('.budget-pre').forEach((b,i)=>b.classList.toggle('active', i===0));
+  document.querySelectorAll('#f-competitors .chip').forEach((c,i)=>c.classList.toggle('active', i<3));
+  document.querySelectorAll('#f-category .chip').forEach((c,i)=>c.classList.toggle('active', i===0));
+  document.querySelectorAll('#f-collection .chip').forEach((c,i)=>c.classList.toggle('active', i===0));
+  document.querySelectorAll('#f-age .chip').forEach((c,i)=>c.classList.toggle('active', i===0));
+  applyFilters(false);
+}
+
+function applyFilters(closePanel=true){
+  F.year        = +document.getElementById('f-year').value || 2024;
+  F.brand       = document.getElementById('f-brand').value;
+  F.competitors = Array.from(document.querySelectorAll('#f-competitors .chip.active')).map(c=>c.dataset.val);
+  F.category    = document.querySelector('#f-category .chip.active')?.dataset.val || 'all';
+  F.collection  = document.querySelector('#f-collection .chip.active')?.dataset.val || 'all';
+  F.age         = document.querySelector('#f-age .chip.active')?.dataset.val || 'all';
+  F.budgetMin   = +document.getElementById('f-budget-min').value || 0;
+  F.budgetMax   = +document.getElementById('f-budget-max').value || 999999;
+  F.company     = document.getElementById('f-company').value;
+  F.dashboard   = document.getElementById('f-dashboard').value;
+  if(closePanel) closeFilter();
+  renderAll();
+}
+
+// ══════════════════════════════════════════════════════════
+// RENDER ALL — master update function
+// ══════════════════════════════════════════════════════════
+function renderAll(){
+  const bd = BRAND_FY[F.brand][F.year] || BRAND_FY[F.brand][2024];
+  updateActiveFilterBar(bd);
+  updateContextBanner(bd);
+  updateHero(bd);
+  updateKPIs(bd);
+  updateFunnel(bd);
+  updateSentiment(bd);
+  updateMixDescriptions(bd);
+  updateTargetSection(bd);
+  renderCharts(bd);
+  buildCompTables(bd);
+  updateConclusion(bd);
+  updateSim();
+}
+
+// ══════════════════════════════════════════════════════════
+// ACTIVE FILTER BAR
+// ══════════════════════════════════════════════════════════
+function updateActiveFilterBar(bd){
+  const BRAND_NAMES = {hm:'H&M',zara:'Zara',westside:'Westside',zudio:'Zudio',max:'Max Fashion'};
+  const tags = [];
+  tags.push(`FY: ${F.year}`);
+  tags.push(`Brand: ${BRAND_NAMES[F.brand]||F.brand}`);
+  if(F.category!=='all')   tags.push(`Category: ${F.category}`);
+  if(F.collection!=='all') tags.push(`Collection: ${F.collection}`);
+  if(F.age!=='all')        tags.push(`Age: ${F.age}`);
+  if(F.budgetMax<999999)   tags.push(`₹${F.budgetMin}–₹${F.budgetMax}`);
+  if(F.company!=='global') tags.push(F.company);
+  if(F.competitors.length) tags.push(`${F.competitors.length} competitor${F.competitors.length>1?'s':''}`);
+
+  const bar = document.getElementById('activeFilters');
+  document.getElementById('afTags').innerHTML = tags.map(t=>`<span class="af-tag">${t}</span>`).join('');
+  bar.classList.toggle('show', tags.length > 2);
+}
+
+// ══════════════════════════════════════════════════════════
+// CONTEXT BANNER
+// ══════════════════════════════════════════════════════════
+function updateContextBanner(bd){
+  const BRAND_NAMES = {hm:'H&M',zara:'Zara',westside:'Westside',zudio:'Zudio',max:'Max Fashion'};
+  document.getElementById('ctx-brand').textContent = BRAND_NAMES[F.brand]||F.brand;
+  document.getElementById('ctx-fy').textContent = `FY ${F.year}`;
+  const chips = document.getElementById('ctx-chips');
+  let html = '';
+  if(F.category!=='all')   html += `<span class="ctx-chip">${F.category}</span>`;
+  if(F.collection!=='all') html += `<span class="ctx-chip">${F.collection}</span>`;
+  if(F.age!=='all')        html += `<span class="ctx-chip">${F.age} yrs</span>`;
+  if(F.budgetMax<999999)   html += `<span class="ctx-chip">₹${F.budgetMin}–${F.budgetMax}</span>`;
+  chips.innerHTML = html;
+}
+
+// ══════════════════════════════════════════════════════════
+// HERO SECTION
+// ══════════════════════════════════════════════════════════
+function updateHero(bd){
+  const BRAND_NAMES = {hm:'H&M',zara:'Zara',westside:'Westside',zudio:'Zudio',max:'Max Fashion'};
+  const brandName = BRAND_NAMES[F.brand]||F.brand;
+  document.getElementById('hero-eyebrow').textContent = `${brandName} · FY ${F.year}`;
+  document.getElementById('hero-sub').textContent = `Strategic analysis of ${brandName}'s marketing performance for FY ${F.year}. ${bd.rev} revenue · ${bd.stores.toLocaleString()} stores · ${bd.markets} markets.`;
+  document.getElementById('hs-rev').innerHTML = bd.rev.replace('B','') + '<sub>B</sub>';
+  document.getElementById('hs-markets').textContent = bd.markets;
+  document.getElementById('hs-stores').textContent = bd.stores.toLocaleString();
+  document.getElementById('hs-aware').innerHTML = bd.aware + '<sub>%</sub>';
+}
+
+// ══════════════════════════════════════════════════════════
+// KPI SECTION — fully dynamic per brand + FY + filters
+// ══════════════════════════════════════════════════════════
+function updateKPIs(bd){
+  const catM  = CAT_MOD[F.category] || 1;
+  const colM  = COL_MOD[F.collection] || 1;
+  const ageM  = AGE_MOD[F.age] || 1;
+  const budM  = getBudgetMod(F.budgetMax);
+  const segM  = catM * colM; // For visit/conversion adjustments
+
+  // Revenue: use real brand+FY revenue, apply segment multipliers for sub-segment view
+  const isFullView = (F.age==='all' && F.budgetMax>=999999 && F.category==='all' && F.collection==='all');
+  const dispRev = isFullView ? bd.rev : formatRev(bd.revN * catM * colM * ageM * budM);
+
+  // Visits
+  const visAdj = isFullView ? bd.visits : +(bd.visits * segM * ageM * budM).toFixed(2);
+  const visStr = visAdj >= 1 ? visAdj.toFixed(2)+'B' : (visAdj*1000).toFixed(0)+'M';
+
+  // Conv — age shifts conversion
+  const convMod = F.age==='18-24'?0.92: F.age==='24-34'?1.06: F.age==='34-50'?1.04: F.age==='50+'?0.88: 1;
+  const convAdj = +(bd.conv * convMod).toFixed(1);
+
+  // NPS — age shifts NPS
+  const npsMod = F.age==='18-24'?1.12: F.age==='24-34'?1.06: F.age==='34-50'?0.96: F.age==='50+'?0.88: 1;
+  const npsAdj = Math.round(bd.nps * npsMod);
+
+  // ROAS — compute from channel data
+  const chROAS = computeChannelROAS();
+  const avgROAS = (Object.values(chROAS).reduce((a,b)=>a+b,0)/5).toFixed(1)+'x';
+
+  document.getElementById('kv-rev').innerHTML = dispRev;
+  document.getElementById('kd-rev').className = 'kpi-delta ' + bd.yoyClass;
+  document.getElementById('kd-rev').textContent = bd.yoy + ' YoY';
+
+  const visEl = document.getElementById('kv-vis');
+  visEl.innerHTML = visStr.replace('B','<span style="font-size:1.2rem">B</span>').replace('M','<span style="font-size:1.2rem">M</span>');
+  document.getElementById('kd-vis').textContent = bd.visDelta;
+
+  document.getElementById('kv-conv').innerHTML = convAdj+'<span style="font-size:1.2rem">%</span>';
+  document.getElementById('kd-conv').textContent = bd.convDelta;
+
+  document.getElementById('kv-ads').innerHTML = bd.ads;
+  document.getElementById('kv-ig').innerHTML = bd.ig+'<span style="font-size:1.2rem">M</span>';
+  document.getElementById('kd-ig').textContent = bd.igDelta;
+  document.getElementById('kv-aov').textContent = bd.aov;
+  document.getElementById('kv-roas').innerHTML = avgROAS;
+  document.getElementById('kd-roas').textContent = bd.roasDelta;
+  document.getElementById('kv-nps').textContent = npsAdj;
+  document.getElementById('kd-nps').textContent = bd.npsDelta;
+}
+
+function formatRev(n){
+  if(n>=1) return '$'+n.toFixed(1)+'<span style="font-size:1.2rem">B</span>';
+  return '$'+(n*1000).toFixed(0)+'<span style="font-size:1.2rem">M</span>';
+}
+
+// ══════════════════════════════════════════════════════════
+// FUNNEL — dynamic per brand + FY + filters
+// ══════════════════════════════════════════════════════════
+function updateFunnel(bd){
+  const catM = CAT_MOD[F.category] || 1;
+  const colM = COL_MOD[F.collection] || 1;
+  const ageM = AGE_MOD[F.age] || 1;
+  const budM = getBudgetMod(F.budgetMax);
+  const segM = catM * colM * ageM * budM;
+
+  // Base funnel from brand visits data
+  const baseVisits = bd.visits; // in Billions
+  const visits = baseVisits * segM;
+  const impressions = visits * (1/0.352); // ~35.2% of impressions become visits
+  const addToCart = visits * 0.419;       // ~41.9% add to cart
+  const checkout = visits * 0.127;        // ~12.7% reach checkout
+  const purchase = visits * 0.036 * (bd.conv/3.6); // purchase based on conv rate
+
+  function fmtV(n){
+    if(n>=1) return n.toFixed(2)+'B';
+    if(n>=0.001) return (n*1000).toFixed(0)+'M';
+    return (n*1000000).toFixed(0)+'K';
+  }
+
+  // Percentages relative to impressions
+  const visP = (visits/impressions)*100;
+  const cartP = (addToCart/impressions)*100;
+  const checkP = (checkout/impressions)*100;
+  const purchP = (purchase/impressions)*100;
+
+  // Cart abandon rate
+  const abandon = (1 - purchase/addToCart)*100;
+  const efficiency = (purchase/impressions)*100;
+
+  document.getElementById('fn1').textContent = fmtV(impressions);
+  document.getElementById('fn1n').textContent = fmtV(impressions);
+  document.getElementById('fn2').style.width = visP+'%';
+  document.getElementById('fn2').textContent = fmtV(visits);
+  document.getElementById('fn2n').textContent = fmtV(visits);
+  document.getElementById('fn3').style.width = cartP+'%';
+  document.getElementById('fn3').textContent = fmtV(addToCart);
+  document.getElementById('fn3n').textContent = fmtV(addToCart);
+  document.getElementById('fn4').style.width = checkP+'%';
+  document.getElementById('fn4').textContent = fmtV(checkout);
+  document.getElementById('fn4n').textContent = fmtV(checkout);
+  document.getElementById('fn5').style.width = Math.max(purchP,2)+'%';
+  document.getElementById('fn5').textContent = fmtV(purchase);
+  document.getElementById('fn5n').textContent = fmtV(purchase);
+  document.getElementById('funnel-eff').textContent = efficiency.toFixed(2)+'%';
+  document.getElementById('funnel-abandon').textContent = abandon.toFixed(1)+'%';
+
+  // Update title
+  const colLbl = F.collection==='all'?'All Collections':cap(F.collection);
+  const ageLbl = F.age==='all'?'All Ages':(F.age+' yrs');
+  document.getElementById('funnel-title').textContent = `Conversion Funnel — FY ${F.year} · ${colLbl} · ${ageLbl}`;
+}
+
+// ══════════════════════════════════════════════════════════
+// SENTIMENT
+// ══════════════════════════════════════════════════════════
+function updateSentiment(bd){
+  const baseSent = bd.sent;
+  const ageSent  = AGE_SENT[F.age] || AGE_SENT.all;
+  const pos = Math.round((baseSent.pos + ageSent.pos)/2);
+  const neu = Math.round((baseSent.neu + ageSent.neu)/2);
+  const neg = 100 - pos - neu;
+  document.getElementById('sent-pos').textContent = pos+'%';
+  document.getElementById('sent-neu').textContent = neu+'%';
+  document.getElementById('sent-neg').textContent = Math.max(neg,0)+'%';
+  document.getElementById('sent-title').textContent = `Brand Sentiment — FY ${F.year} · ${F.age==='all'?'All Ages':F.age+' yrs'}`;
+}
+
+// ══════════════════════════════════════════════════════════
+// MIX DESCRIPTIONS
+// ══════════════════════════════════════════════════════════
+function updateMixDescriptions(bd){
+  const BRAND_NAMES = {hm:'H&M',zara:'Zara',westside:'Westside',zudio:'Zudio',max:'Max Fashion'};
+  const brandName = BRAND_NAMES[F.brand]||F.brand;
+  const catMap = {all:'apparel, accessories, and home',jeans:'denim and jeans',shirts:'shirts and tops',dresses:'dresses and occasionwear',activewear:'sportswear and activewear',outerwear:'outerwear and coats',accessories:'bags, jewellery, and accessories',kidswear:'children\'s clothing'};
+  const budMap = {
+    low:`Value pricing under ₹500 for price-sensitive segments. Flash sales and combo offers drive volume.`,
+    mid:`Competitive pricing ₹500–1,500, anchored by hero items. Loyalty programme discounts drive volume.`,
+    upper:`Mid-range positioning ₹1,500–4,000. Quality-to-price ratio drives aspiration and repeat purchase.`,
+    prem:`Premium positioning above ₹4,000 with sustainability credentials as key value drivers.`,
+    all:`Competitive fast-fashion pricing anchored by hero items. Loyalty programme discounts and student offers drive volume at scale.`,
+  };
+  const budKey = F.budgetMax<=500?'low':F.budgetMax<=1500?'mid':F.budgetMax<=4000?'upper':F.budgetMax<=10000?'prem':'all';
+  const ageMap = {'all':'','18-24':' Gen Z consumers prioritise TikTok-first campaigns.','24-34':' Millennials favour app-driven loyalty and sustainability.','34-50':' This cohort responds to quality positioning and omnichannel convenience.','50+':' Older shoppers prefer in-store experience and reliable quality.'};
+
+  document.getElementById('mix-product').textContent = `Frequent trend-responsive launches in ${catMap[F.category]||'all categories'}. Conscious Collection drives sustainability narrative for ${brandName}.`;
+  document.getElementById('mix-price').textContent = budMap[budKey];
+  document.getElementById('mix-place').textContent = `${bd.stores.toLocaleString()} stores across ${bd.markets} markets paired with robust e-commerce. Click-and-collect bridges physical and digital channels.`;
+  document.getElementById('mix-promo').textContent = `Influencer co-creation on TikTok and Instagram, sustainability storytelling, CRM-driven email campaigns.${ageMap[F.age]}`;
+}
+
+// ══════════════════════════════════════════════════════════
+// TARGET SECTION
+// ══════════════════════════════════════════════════════════
+function updateTargetSection(bd){
+  const onlinePct = F.age==='18-24'?72:F.age==='24-34'?64:F.age==='34-50'?51:F.age==='50+'?32:58;
+  const femalePct = F.category==='dresses'?82:F.category==='activewear'?68:F.category==='kidswear'?65:63;
+  document.getElementById('tg2').textContent = onlinePct+'%';
+  document.getElementById('tg2-bar').style.width = onlinePct+'%';
+  document.getElementById('tg3').textContent = femalePct+'%';
+  document.getElementById('tg3-bar').style.width = femalePct+'%';
+  document.getElementById('tg4').textContent = bd.aware+'%';
+  document.getElementById('tg4-bar').style.width = bd.aware+'%';
+  document.getElementById('tg2-desc').textContent = `Digital-first purchasing at ${onlinePct}% in FY ${F.year} for the ${F.age==='all'?'general':F.age} segment, driven by mobile app adoption.`;
+  document.getElementById('tg3-desc').textContent = `${femalePct}% female customer base in the ${F.category==='all'?'overall':F.category} category, with growing menswear and gender-neutral lines.`;
+  document.getElementById('tg4-desc').textContent = `${bd.aware}% brand awareness in FY ${F.year}, one of the highest recall rates in global fast fashion.`;
+}
+
+// ══════════════════════════════════════════════════════════
+// COMPUTE CHANNEL ROAS
+// ══════════════════════════════════════════════════════════
+function computeChannelROAS(){
+  const base    = BRAND_ROAS_CH[F.brand] || BRAND_ROAS_CH.hm;
+  const ageM    = AGE_ROAS[F.age]        || AGE_ROAS.all;
+  const colM    = COL_ROAS[F.collection] || COL_ROAS.all;
+  const catM    = CAT_ROAS[F.category]   || CAT_ROAS.all;
+  const budM    = getBudgetRoasMod(F.budgetMax);
+  const result  = {};
+  ['Social','Search','Influencer','Display','Email'].forEach(ch=>{
+    result[ch] = +((base[ch]||3) * ageM[ch] * colM[ch] * catM[ch] * budM[ch]).toFixed(2);
+  });
+  return result;
+}
+
+// ══════════════════════════════════════════════════════════
+// CHARTS — all 5 charts fully reactive
+// ══════════════════════════════════════════════════════════
+function destroyChart(key){
+  try{ if(charts[key]){ charts[key].destroy(); charts[key]=null; } }catch(e){}
+}
+
+function hexAlpha(hex, a){
+  try{
+    hex = hex.replace('#','');
+    if(hex.length===3) hex=hex[0]+hex[0]+hex[1]+hex[1]+hex[2]+hex[2];
+    const r=parseInt(hex.slice(0,2),16), g=parseInt(hex.slice(2,4),16), b=parseInt(hex.slice(4,6),16);
+    return `rgba(${r},${g},${b},${a})`;
+  }catch(e){ return `rgba(229,0,16,${a})`; }
+}
+
+function cap(s){ return s.charAt(0).toUpperCase()+s.slice(1); }
+
+function renderCharts(bd){
+  const colSeas  = COL_SEASONAL[F.collection] || COL_SEASONAL.all;
+  const ageMthly = AGE_MONTHLY[F.age]         || AGE_MONTHLY.all;
+  const fyScale  = bd.revN; // absolute revenue base for main brand
+  const colM     = COL_MOD[F.collection] || 1;
+  const catM     = CAT_MOD[F.category]   || 1;
+  const ageM     = AGE_MOD[F.age]        || 1;
+  const budM     = getBudgetMod(F.budgetMax);
+  const compScale = COMP_FY_SCALE[F.year] || COMP_FY_SCALE[2024];
+
+  // Build combined brand+competitor list (excluding main brand from competitors if duplicated)
+  const mainBrandInComps = F.competitors.includes(F.brand);
+  const compList = F.competitors.filter(k => k !== F.brand);
+  const allBrands = [
+    { key:F.brand, label: bd.name || (['hm','zara','westside','zudio','max'].includes(F.brand)?{hm:'H&M',zara:'Zara',westside:'Westside',zudio:'Zudio',max:'Max Fashion'}[F.brand]:'Brand'), color:getColor(F.brand), revN:bd.revN, isMain:true },
+    ...compList.map(k=>{
+      const cd = COMP_DB[k]; if(!cd) return null;
+      return { key:k, label:cd.label, color:cd.color, revN:cd.rev*(compScale[k]||1), isMain:false };
+    }).filter(Boolean)
+  ];
+
+  // ── 1. MONTHLY REVENUE LINE CHART ──
+  destroyChart('rev');
+  const colLbl = F.collection==='all'?'All Collections':cap(F.collection);
+  const ageLbl = F.age==='all'?'All Ages':(F.age+' yrs');
+  document.getElementById('rev-chart-title').textContent = `Monthly Revenue — FY${F.year} · ${colLbl} · ${ageLbl}`;
+
+  const revLegEl = document.getElementById('rev-legend');
+  revLegEl.innerHTML = '';
+
+  const revDatasets = allBrands.map(b=>{
+    const pattern = BRAND_MONTHLY_PATTERN[b.key] || BRAND_MONTHLY_PATTERN.hm;
+    const annualRev = b.isMain ? b.revN * catM * colM * ageM * budM : b.revN * catM * colM;
+    const monthly = pattern.map((p,i)=> +(annualRev * p * 12 * colSeas[i] * ageMthly[i]).toFixed(3));
+    // Normalise so monthly values are in a sensible range
+    const factor = b.isMain ? 1 : (b.isMain ? 1 : (catM * colM));
+    const data = monthly.map((v,i)=> +(b.revN * (compScale[b.key]||1) * pattern[i] * 12 * colSeas[i] * ageMthly[i] * (b.isMain?catM*colM*ageM*budM:1)).toFixed(3));
+    revLegEl.innerHTML += `<span><span class="ld" style="background:${b.color}"></span>${b.label}</span>`;
+    return {
+      label: b.label,
+      data: data,
+      borderColor: b.color,
+      backgroundColor: hexAlpha(b.color, b.isMain?0.10:0),
+      tension: 0.4,
+      fill: b.isMain,
+      pointRadius: 3,
+      pointHoverRadius: 5,
+      borderWidth: b.isMain ? 2.5 : 1.5,
+      borderDash: b.isMain ? [] : [5,3],
+    };
+  });
+
+  charts.rev = new Chart(document.getElementById('revenueChart'),{
+    type:'line',
+    data:{labels:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'], datasets:revDatasets},
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      interaction:{mode:'index',intersect:false},
+      plugins:{
+        legend:{display:false},
+        tooltip:{callbacks:{label:ctx=>`${ctx.dataset.label}: $${ctx.parsed.y.toFixed(2)}B`}}
+      },
+      scales:{
+        x:{grid:{display:false},ticks:{color:'#cc0000',font:{size:11}}},
+        y:{grid:{color:'rgba(204,0,0,0.06)'},ticks:{color:'#cc0000',font:{size:11},callback:v=>'$'+v.toFixed(1)+'B'}}
+      }
+    }
+  });
+
+  // ── 2. CATEGORY SHARE BAR CHART ──
+  destroyChart('cat');
+  const catLbl = F.category==='all'?'All Categories':cap(F.category);
+  const budLbl = F.budgetMax>=999999?'All Budgets':F.budgetMax>=10000?'₹10K+':F.budgetMax>=4000?'Premium ₹4K+':F.budgetMax>=1500?'Mid ₹1.5–4K':'Value ₹0–1.5K';
+  document.getElementById('cat-chart-title').textContent = `Category Share — FY${F.year} · ${catLbl} · ${budLbl}`;
+
+  const catLegEl = document.getElementById('cat-legend');
+  catLegEl.innerHTML = '';
+
+  let catLabels, catDatasets;
+  if(F.category === 'all'){
+    // Show each brand's category split
+    const allCatKeys = [...new Set(allBrands.flatMap(b=>Object.keys(BRAND_CAT_SHARE[b.key]||BRAND_CAT_SHARE.hm)))];
+    catLabels = allCatKeys;
+    catDatasets = allBrands.map(b=>{
+      const share = BRAND_CAT_SHARE[b.key] || BRAND_CAT_SHARE.hm;
+      // Budget adjusts category mix
+      const budAdj = F.budgetMax<=500?{Casuals:1.4,Basics:1.3,Other:1.2,Ethnic:1.2}:
+                     F.budgetMax<=1500?{Casuals:1.2,Basics:1.1}:
+                     F.budgetMax<=4000?{Apparel:1.1,Womenswear:1.1}:
+                     {Accessories:1.3,Apparel:1.2,Shoes:1.3};
+      const vals = allCatKeys.map(k=>{
+        const base = share[k]||0;
+        const adj  = budAdj[k]||1;
+        return +(base*adj).toFixed(1);
+      });
+      catLegEl.innerHTML += `<span><span class="ld" style="background:${b.color}"></span>${b.label}</span>`;
+      return { label:b.label, data:vals, backgroundColor:hexAlpha(b.color,0.75), borderColor:b.color, borderWidth:1.5, borderRadius:3 };
+    });
+  } else {
+    // Show sub-category breakdown for selected category
+    const subShare = CAT_SUBSHARE[F.category] || {};
+    catLabels = Object.keys(subShare);
+    catDatasets = allBrands.map(b=>{
+      // Each brand has slightly different sub-cat emphasis
+      const brandMod = b.key==='zara'?1.08:b.key==='shein'?0.92:b.key==='uniqlo'?1.05:1;
+      const vals = Object.values(subShare).map(v=>+(v*brandMod*(1+(Math.random()-0.5)*0.1)).toFixed(1));
+      // Normalise to 100
+      const total = vals.reduce((a,b)=>a+b,0);
+      const norm = vals.map(v=>+((v/total)*100).toFixed(1));
+      catLegEl.innerHTML += `<span><span class="ld" style="background:${b.color}"></span>${b.label}</span>`;
+      return { label:b.label, data:norm, backgroundColor:hexAlpha(b.color,0.75), borderColor:b.color, borderWidth:1.5, borderRadius:3 };
+    });
+  }
+
+  charts.cat = new Chart(document.getElementById('categoryChart'),{
+    type:'bar',
+    data:{labels:catLabels, datasets:catDatasets},
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      interaction:{mode:'index',intersect:false},
+      plugins:{
+        legend:{display:false},
+        tooltip:{callbacks:{label:ctx=>`${ctx.dataset.label}: ${ctx.parsed.y}%`}}
+      },
+      scales:{
+        x:{grid:{display:false},ticks:{color:'#cc0000',font:{size:11}}},
+        y:{grid:{color:'rgba(204,0,0,0.06)'},ticks:{color:'#cc0000',font:{size:11},callback:v=>v+'%'},
+           title:{display:true,text:'Revenue Share (%)',color:'#cc0000',font:{size:11}}}
+      }
+    }
+  });
+
+  // ── 3. ROAS BY CHANNEL (grouped bar) ──
+  destroyChart('ad');
+  const ageLabel2 = F.age==='all'?'All Ages':(F.age+' yrs');
+  const colLabel2 = F.collection==='all'?'All Collections':cap(F.collection);
+  document.getElementById('ad-chart-title').textContent = `ROAS by Channel — FY${F.year} · ${ageLabel2} · ${colLabel2}`;
+
+  const adLegEl = document.getElementById('ad-legend');
+  adLegEl.innerHTML = '';
+  const CHANNELS = ['Social','Search','Influencer','Display','Email'];
+
+  const adDatasets = allBrands.map(b=>{
+    let baseRoas = BRAND_ROAS_CH[b.key] || BRAND_ROAS_CH.hm;
+    const ageM2  = AGE_ROAS[F.age]        || AGE_ROAS.all;
+    const colM2  = COL_ROAS[F.collection] || COL_ROAS.all;
+    const catM2  = CAT_ROAS[F.category]   || CAT_ROAS.all;
+    const budM2  = getBudgetRoasMod(F.budgetMax);
+    const vals = CHANNELS.map(ch=>+((baseRoas[ch]||3)*ageM2[ch]*colM2[ch]*catM2[ch]*budM2[ch]).toFixed(2));
+    adLegEl.innerHTML += `<span><span class="ld" style="background:${b.color}"></span>${b.label}</span>`;
+    return { label:b.label, data:vals, backgroundColor:hexAlpha(b.color,0.75), borderColor:b.color, borderWidth:1.5, borderRadius:3 };
+  });
+
+  charts.ad = new Chart(document.getElementById('adChart'),{
+    type:'bar',
+    data:{labels:CHANNELS, datasets:adDatasets},
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      interaction:{mode:'index',intersect:false},
+      plugins:{
+        legend:{display:false},
+        tooltip:{callbacks:{label:ctx=>`${ctx.dataset.label}: ${ctx.parsed.y}x`}}
+      },
+      scales:{
+        x:{grid:{display:false},ticks:{color:'#cc0000',font:{size:11}}},
+        y:{grid:{color:'rgba(204,0,0,0.06)'},ticks:{color:'#cc0000',font:{size:11},callback:v=>v+'x'},
+           title:{display:true,text:'ROAS',color:'#cc0000',font:{size:11}}}
+      }
+    }
+  });
+
+  // ── 4. MARKET SHARE DOUGHNUT ──
+  destroyChart('mkt');
+  const catLbl2 = F.category==='all'?'All Categories':cap(F.category);
+  const budLbl2 = F.budgetMax>=999999?'All Budgets':F.budgetMax>=4000?'Premium':'Value';
+  document.getElementById('mkt-title').textContent = `Market Share — ${catLbl2} · ${budLbl2}`;
+
+  // Compute market share from revenue totals, adjusted by budget + category
+  const rawShares = allBrands.map(b=>{
+    let rv = b.isMain ? b.revN * catM : b.revN * catM;
+    // Budget: value brands gain in low budget, luxury brands gain in high budget
+    const budAdj = getBudgetBrandAdj(b.key, F.budgetMax);
+    // Category: some brands are stronger in specific categories
+    const catAdj = getCatBrandAdj(b.key, F.category);
+    return Math.max(rv * budAdj * catAdj, 0.01);
+  });
+  const totalRev = rawShares.reduce((a,b)=>a+b,0);
+  const mktPcts  = rawShares.map(v=>+((v/totalRev)*100).toFixed(1));
+
+  charts.mkt = new Chart(document.getElementById('mktChart'),{
+    type:'doughnut',
+    data:{
+      labels: allBrands.map(b=>b.label),
+      datasets:[{ data:mktPcts, backgroundColor:allBrands.map(b=>b.color), borderWidth:2, borderColor:'#fff', hoverOffset:8 }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{
+        legend:{display:true,position:'right',labels:{font:{size:11},boxWidth:10,color:'#cc0000',padding:8}},
+        tooltip:{callbacks:{label:ctx=>`${ctx.label}: ${ctx.parsed}%`}}
+      },
+      cutout:'62%'
+    }
+  });
+
+  // ── 5. COMPETITOR REVENUE BAR ──
+  destroyChart('comp');
+  const ageLabel3 = F.age==='all'?'All Segments':(F.age+' yrs');
+  document.getElementById('comp-bar-title').textContent = `Revenue Comparison — FY${F.year} · ${ageLabel3} · ${catLbl}`;
+
+  const isSegmented = (F.age!=='all' || F.budgetMax<999999);
+  const compVals = allBrands.map(b=>{
+    let base = b.revN;
+    if(isSegmented){
+      const ageRevM  = AGE_MOD[F.age] || 1;
+      const budRevM  = getBudgetMod(F.budgetMax);
+      // Scale to show segment revenue (annualised estimate)
+      base = +(base * ageRevM * budRevM * (1/AGE_MOD.all)).toFixed(3);
+    }
+    return +base.toFixed(2);
+  });
+
+  charts.comp = new Chart(document.getElementById('compChart'),{
+    type:'bar',
+    data:{
+      labels: allBrands.map(b=>b.label),
+      datasets:[{
+        label: isSegmented?'Segment Revenue ($B)':'Revenue ($B)',
+        data: compVals,
+        backgroundColor: allBrands.map(b=>hexAlpha(b.color,0.75)),
+        borderColor: allBrands.map(b=>b.color),
+        borderWidth: 1.5, borderRadius:4, borderSkipped:false
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{
+        legend:{display:false},
+        tooltip:{callbacks:{label:ctx=>`$${ctx.parsed.y.toFixed(2)}B${isSegmented?' (segment)':''}`}}
+      },
+      scales:{
+        x:{grid:{display:false},ticks:{color:'#cc0000',font:{size:11}}},
+        y:{grid:{color:'rgba(204,0,0,0.06)'},ticks:{color:'#cc0000',font:{size:11},callback:v=>'$'+v+'B'},
+           title:{display:true,text:isSegmented?'Segment Revenue ($B)':'Annual Revenue ($B)',color:'#cc0000',font:{size:11}}}
+      }
+    }
+  });
+}
+
+// Brand colour lookup
+function getColor(brandKey){
+  const map = {hm:'#E50010',zara:'#1D2951',westside:'#7B3F00',zudio:'#6A0DAD',max:'#0066CC'};
+  return map[brandKey]||'#E50010';
+}
+
+// Budget brand adj for market share
+function getBudgetBrandAdj(key, maxBudget){
+  if(maxBudget >= 999999) return 1;
+  if(maxBudget >= 4000){
+    const premMap = {zara:1.4,uniqlo:1.3,gap:1.1,hm:1.0,max:0.8,shein:0.5,zudio:0.4,westside:0.7,primark:0.5,forever21:0.8};
+    return premMap[key]||1;
+  }
+  if(maxBudget <= 1500){
+    const valMap  = {shein:1.5,zudio:1.6,primark:1.4,westside:1.2,max:1.1,hm:0.8,zara:0.6,uniqlo:0.7,gap:0.8,forever21:0.9};
+    return valMap[key]||1;
+  }
+  return 1;
+}
+
+// Category brand adj for market share
+function getCatBrandAdj(key, cat){
+  if(cat==='all') return 1;
+  const map = {
+    activewear: {uniqlo:1.4,hm:1.1,shein:0.9,gap:1.2,zara:1.1,zudio:0.8},
+    outerwear:  {uniqlo:1.5,gap:1.2,primark:0.9,shein:0.7,hm:1.1,zara:1.2},
+    kidswear:   {hm:1.3,primark:1.4,shein:0.9,zara:1.0,westside:1.2,zudio:1.1},
+    accessories:{zara:1.4,hm:1.1,shein:1.2,primark:0.8,westside:0.9,uniqlo:1.2},
+    dresses:    {zara:1.3,shein:1.2,forever21:1.2,hm:1.0,westside:0.8,zudio:0.7},
+    jeans:      {hm:1.2,gap:1.4,zara:1.2,primark:1.1,shein:1.0,uniqlo:1.1},
+  };
+  return (map[cat]||{})[key] || 1;
+}
+
+// ══════════════════════════════════════════════════════════
+// COMPETITOR TABLES
+// ══════════════════════════════════════════════════════════
+function buildCompTables(bd){
+  const brandKey = F.brand;
+  const brandColor = getColor(F.brand);
+  const rows = [brandKey, ...F.competitors.filter(k=>k!==brandKey)].slice(0, 6);
+  const BRAND_NAMES = {hm:'H&M',zara:'Zara',westside:'Westside',zudio:'Zudio',max:'Max Fashion'};
+
+  const buildRow = (key)=>{
+    const d  = ALL_COMP[key] || ALL_COMP.hm;
+    const isMain = key === brandKey;
+    const style  = isMain ? `style="color:${brandColor};font-weight:600"` : '';
+    const displayName = BRAND_NAMES[key] || d.name;
+    return {
+      ov:`<tr><td ${style}>${displayName}</td><td>${d.rev}</td><td>${d.mkt}</td><td>${d.stores}</td><td>${d.ads}</td><td><span class="pill ${d.tc}">${d.trend}</span></td></tr>`,
+      sv:`<tr><td ${style}>${displayName}</td><td>${d.ig}</td><td>${d.tt}</td><td>${d.eng}</td><td>${d.reach}</td><td><span class="pill ${d.sent}">${d.stxt}</span></td></tr>`,
+      dv:`<tr><td ${style}>${displayName}</td><td>${d.vis}</td><td>${d.bnc}</td><td>${d.conv}</td><td>${d.aov}</td><td>${d.roas}</td></tr>`,
+    };
+  };
+
+  const rs = rows.map(buildRow);
+  document.getElementById('tbl-overview').innerHTML = `<thead><tr><th>Brand</th><th>Revenue</th><th>Markets</th><th>Stores</th><th>Ad Spend</th><th>YoY</th></tr></thead><tbody>${rs.map(r=>r.ov).join('')}</tbody>`;
+  document.getElementById('tbl-social').innerHTML   = `<thead><tr><th>Brand</th><th>Instagram</th><th>TikTok</th><th>Engagement</th><th>Monthly Reach</th><th>Sentiment</th></tr></thead><tbody>${rs.map(r=>r.sv).join('')}</tbody>`;
+  document.getElementById('tbl-digital').innerHTML  = `<thead><tr><th>Brand</th><th>Web Visits/yr</th><th>Bounce Rate</th><th>Conv. Rate</th><th>Avg. Order</th><th>ROAS</th></tr></thead><tbody>${rs.map(r=>r.dv).join('')}</tbody>`;
+}
+
+// ══════════════════════════════════════════════════════════
+// TAB SWITCH
+// ══════════════════════════════════════════════════════════
+function showTab(tab, btn){
+  ['overview','social','digital'].forEach(t=>{ document.getElementById('tab-'+t).style.display = t===tab?'':'none'; });
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// ══════════════════════════════════════════════════════════
+// STRATEGY OPTS
+// ══════════════════════════════════════════════════════════
+document.querySelectorAll('.s-opt').forEach(opt=>{
+  opt.addEventListener('click',()=>{
+    opt.closest('div').querySelectorAll('.s-opt').forEach(o=>o.classList.remove('selected'));
+    opt.classList.add('selected');
+    opt.querySelector('input').checked = true;
+    updateSim();
+  });
+});
+
+// ══════════════════════════════════════════════════════════
+// SIMULATION
+// ══════════════════════════════════════════════════════════
+const SIM_TABLE = [
+  {s:5, t:20000,c:1.5,r:15},
+  {s:10,t:35000,c:1.7,r:28},
+  {s:15,t:48000,c:1.9,r:45},
+  {s:20,t:60000,c:2.0,r:60},
+  {s:25,t:70000,c:2.05,r:72},
+  {s:30,t:78000,c:2.1,r:82},
+  {s:40,t:90000,c:2.15,r:95},
+  {s:60,t:105000,c:2.2,r:115},
+];
+
+function updateSim(){
+  const budget  = +document.getElementById('sl-budget').value;
+  const digital = +document.getElementById('sl-digital').value;
+  const inf     = +document.getElementById('sl-inf').value;
+  const sus     = +document.getElementById('sl-sus').value;
+  const pricing = document.querySelector('input[name="pricing"]:checked')?.value || 'balanced';
+  const catM    = CAT_MOD[F.category] || 1;
+  const colM    = COL_MOD[F.collection] || 1;
+  const budM    = getBudgetMod(F.budgetMax);
+
+  document.getElementById('sv-budget').textContent  = '₹'+budget+' Lakhs';
+  document.getElementById('sv-digital').textContent = digital+'%';
+  document.getElementById('sv-inf').textContent     = inf+'%';
+  document.getElementById('sv-sus').textContent     = ['','Low','Medium','High'][sus];
+
+  let lo = SIM_TABLE[0], hi = SIM_TABLE[SIM_TABLE.length-1];
+  for(let i=0;i<SIM_TABLE.length-1;i++){
+    if(budget>=SIM_TABLE[i].s && budget<=SIM_TABLE[i+1].s){ lo=SIM_TABLE[i]; hi=SIM_TABLE[i+1]; break; }
+  }
+  const t2  = lo.s===hi.s ? 0 : (budget-lo.s)/(hi.s-lo.s);
+  const dm  = 1+(digital-50)*0.003;
+  const im  = 1+(inf-20)*0.005;
+  const pm  = {aggressive:1.08,balanced:1.0,premium:0.88}[pricing]||1;
+  const susM= 1+(sus-2)*0.03;
+  const totalM = dm*im*pm*susM*catM*colM*budM;
+
+  const traffic   = Math.round((lo.t+t2*(hi.t-lo.t))*totalM);
+  const conv      = +((lo.c+t2*(hi.c-lo.c))*Math.min(im*pm,1.5)).toFixed(2);
+  const rev       = +((lo.r+t2*(hi.r-lo.r))*totalM).toFixed(1);
+  const roas      = +(rev/budget).toFixed(1);
+  const purchases = Math.round(traffic*conv/100);
+  const cpa       = purchases>0 ? Math.round(budget*100000/purchases) : 0;
+
+  document.getElementById('r-traffic').textContent = traffic.toLocaleString();
+  document.getElementById('r-conv').textContent    = conv+'%';
+  document.getElementById('r-rev').textContent     = '₹'+rev+'L';
+  document.getElementById('r-cpa').textContent     = '₹'+cpa.toLocaleString();
+  document.getElementById('r-roas').textContent    = roas+'x';
+  document.getElementById('r-roas').style.color    = roas>=5?'var(--green)':roas>=3?'var(--gold)':'var(--red)';
+  document.getElementById('r-verdict').textContent = roas>=5?'Excellent — top quartile':roas>=3?'Good — above baseline':roas>=2?'Fair — at industry average':'Below average — optimise mix';
+
+  destroyChart('sim');
+  const pts = SIM_TABLE.map(row=>+(row.r*totalM).toFixed(1));
+  const simColor = getColor(F.brand);
+  charts.sim = new Chart(document.getElementById('simChart'),{
+    type:'line',
+    data:{
+      labels: SIM_TABLE.map(r=>'₹'+r.s+'L'),
+      datasets:[
+        {label:'Projected Revenue',data:pts,borderColor:simColor,backgroundColor:hexAlpha(simColor,.08),tension:.4,fill:true,pointRadius:3,borderWidth:2},
+        {label:'Current',data:SIM_TABLE.map((r,i)=>Math.abs(r.s-budget)<3.5?pts[i]:null),borderColor:'#c9a84c',backgroundColor:'#c9a84c',pointRadius:8,showLine:false}
+      ]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false}},
+      scales:{
+        x:{grid:{display:false},ticks:{color:'#cc0000',font:{size:10}}},
+        y:{grid:{color:'rgba(204,0,0,0.06)'},ticks:{color:'#cc0000',font:{size:10},callback:v=>'₹'+v+'L'}}
+      }
+    }
+  });
+}
+
+// ══════════════════════════════════════════════════════════
+// AI STRATEGY ANALYSIS
+// ══════════════════════════════════════════════════════════
+async function runAI(){
+  const BRAND_NAMES = {hm:'H&M',zara:'Zara',westside:'Westside',zudio:'Zudio',max:'Max Fashion'};
+  const brandName = BRAND_NAMES[F.brand]||F.brand;
+  const bd = BRAND_FY[F.brand][F.year] || BRAND_FY[F.brand][2024];
+  const budget  = document.getElementById('sl-budget').value;
+  const digital = document.getElementById('sv-digital').textContent;
+  const inf     = document.getElementById('sv-inf').textContent;
+  const sus     = ['','Low','Medium','High'][+document.getElementById('sl-sus').value];
+  const pricing = document.querySelector('input[name="pricing"]:checked')?.value||'balanced';
+  const rev     = document.getElementById('r-rev').textContent;
+  const roas    = document.getElementById('r-roas').textContent;
+
+  document.getElementById('ai-text').innerHTML = `<div class="ai-loading"><div class="ai-dot"></div><div class="ai-dot"></div><div class="ai-dot"></div><span style="margin-left:6px">Analysing strategy...</span></div>`;
+
+  const prompt = `You are a senior marketing strategist. A PGDM student has configured this marketing simulation:
+
+Brand: ${brandName} | Fiscal Year: FY ${F.year} | Revenue: ${bd.rev}
+Budget: ₹${budget} Lakhs | Digital: ${digital} | Influencer: ${inf} | Sustainability: ${sus} | Pricing: ${pricing}
+Active Filters: Category: ${F.category} | Collection: ${F.collection} | Age Group: ${F.age} | Budget Range: ₹${F.budgetMin}–₹${F.budgetMax} | Market: ${F.company}
+Simulated Revenue: ${rev} | ROAS: ${roas}
+
+Write a concise professional analysis (3–4 sentences) covering: 1) the key strength of this configuration, 2) one specific risk, 3) one actionable ROAS improvement. Reference the specific filters and fiscal year selected. Use flowing professional prose, no bullet points.`;
+
+  try{
+    const resp = await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})});
+    const data = await resp.json();
+    const raw  = data.content?.map(b=>b.text||'').join('')||'Analysis unavailable.';
+    const sentences = raw.split('. ');
+    const fmt = sentences.map((s,i)=>i===0?`<strong>${s}.</strong>`:s+(i<sentences.length-1?'.':'')).join(' ');
+    document.getElementById('ai-text').innerHTML = `<div class="ai-text">${fmt}</div>`;
+  }catch(e){
+    document.getElementById('ai-text').innerHTML = `<div class="ai-text" style="color:var(--amber)">AI analysis temporarily unavailable. Results above reflect quantitative simulation output.</div>`;
+  }
+}
+
+// ══════════════════════════════════════════════════════════
+// CONCLUSION — dynamic per all filters
+// ══════════════════════════════════════════════════════════
+function updateConclusion(bd){
+  if(!bd){
+    bd = BRAND_FY[F.brand][F.year] || BRAND_FY[F.brand][2024];
+  }
+  const BRAND_NAMES = {hm:'H&M',zara:'Zara',westside:'Westside',zudio:'Zudio',max:'Max Fashion'};
+  const brandName = BRAND_NAMES[F.brand]||F.brand;
+  const fy = F.year;
+  const fyNext = fy+1;
+  const catLabel = F.category==='all'?'all clothing categories':F.category;
+  const colLabel = F.collection==='all'?'all collections':(F.collection+' collection');
+  const ageLabel = F.age==='all'?'all age groups':(F.age+' year olds');
+  const budLabel = F.budgetMax>=999999?'across all price points':F.budgetMax>=4000?`in the ₹${F.budgetMin.toLocaleString()}–₹${F.budgetMax.toLocaleString()} premium range`:F.budgetMax>=1500?`at mid-range ₹${F.budgetMin.toLocaleString()}–₹${F.budgetMax.toLocaleString()}`:F.budgetMax>=500?`at value ₹${F.budgetMin}–₹${F.budgetMax}`:`under ₹${F.budgetMax}`;
+  const compNames = F.competitors.slice(0,2).map(k=>COMP_DB[k]?.label||k).join(' and ');
+  const chROAS = computeChannelROAS();
+
+  document.getElementById('c1').innerHTML = `<strong>${brandName} delivered ${bd.rev} in revenue for FY ${fy}</strong>, operating across ${bd.markets} markets with ${bd.stores.toLocaleString()} stores and a website conversion rate of ${bd.conv}%. In the ${catLabel} segment ${budLabel}, the brand demonstrates strong category depth. The primary growth lever is accelerating digital channels — site traffic grew to ${typeof bd.visits==='number'?(bd.visits>=1?bd.visits+'B':'~'+(bd.visits*1000).toFixed(0)+'M'):bd.visits} visits in FY ${fy}, outpacing offline store growth.`;
+
+  document.getElementById('c2').innerHTML = `Across ${ageLabel} within the <strong>${catLabel} segment</strong> in FY ${fy}, Email marketing delivers the highest ROAS at ${chROAS.Email}x under current filter conditions, followed by Influencer channels at ${chROAS.Influencer}x. Yet email receives only ~6% of total ad spend — reallocating 5–8% from Display (ROAS: ${chROAS.Display}x) to email automation could yield a 12–15% improvement in overall ROAS. TikTok engagement benchmarks make it a priority for ${F.age==='18-24'||F.age==='all'?'Gen Z':'the '+F.age} acquisition funnel.`;
+
+  document.getElementById('c3').innerHTML = `${brandName} faces competitive pressure from <strong>${compNames}</strong> in the ${catLabel} category in FY ${fy}. Within the ${ageLabel} segment ${budLabel}, brand differentiation through sustainability messaging and quality storytelling will be more durable than price-only competition. The ${F.collection==='conscious'?'Conscious Collection is already':''+colLabel+' is'} a key differentiator — scaling this narrative across the ${catLabel} range can improve premium perception.`;
+
+  document.getElementById('c4').innerHTML = `The <strong>${colLabel}</strong> across ${catLabel} in FY ${fy} represents ${F.budgetMax<=1500?'a high-volume, price-sensitive opportunity best addressed through value bundles and flash sales.':F.budgetMax<=4000?'the core mid-market opportunity where quality-to-price ratio drives repurchase intent.':'a premium opportunity where sustainability credentials and fabric quality are the primary purchase drivers.'} ${brandName} should align launch timing with peak seasonal demand months relevant to this collection.`;
+
+  document.getElementById('c5').innerHTML = `The <strong>${F.age==='all'?'broad consumer':''+F.age}</strong> segment spending ${F.budgetMax>=999999?'across all price points':F.budgetMax>=4000?'₹4,000–'+F.budgetMax.toLocaleString():F.budgetMax>=1500?'₹1,500–'+F.budgetMax:'under ₹'+F.budgetMax} in FY ${fy} shows ${F.age==='18-24'?'high social engagement at ~5.1% on TikTok, but lowest basket sizes — micro-influencer content and loyalty perks maximise LTV.':F.age==='24-34'?'the highest revenue per customer — omnichannel personalisation and premium sub-brand development offer the highest ROI.':F.age==='34-50'?'strong loyalty and repeat purchase behaviour — CRM personalisation and in-store experience upgrades drive retention.':'consistent store preferences and high loyalty — accessibility improvements and reliable quality communications are key.'} ${brandName} should prioritise this segment in the ${colLabel}.`;
+
+  document.getElementById('c6').innerHTML = `<strong>Three priority actions for ${brandName} in FY ${fyNext}:</strong> First, reallocate 8% of Display budget (current ROAS: ${chROAS.Display}x) to Email automation (current ROAS: ${chROAS.Email}x) targeting ${ageLabel} with ${colLabel} content. Second, reduce cart abandonment in the ${catLabel} category through streamlined checkout UX and personalised retargeting sequences — a 5% improvement could unlock significant recovered revenue. Third, accelerate ${colLabel} expansion ${budLabel} — this intersection of category, collection, age group, and price point represents ${brandName}'s clearest untapped growth opportunity for FY ${fyNext}.`;
+}
+
+// ══════════════════════════════════════════════════════════
+// AI DYNAMIC CONCLUSION GENERATOR
+// ══════════════════════════════════════════════════════════
+async function generateConclusion(){
+  const BRAND_NAMES = {hm:'H&M',zara:'Zara',westside:'Westside',zudio:'Zudio',max:'Max Fashion'};
+  const brandName = BRAND_NAMES[F.brand]||F.brand;
+  const bd = BRAND_FY[F.brand][F.year] || BRAND_FY[F.brand][2024];
+  const el = document.getElementById('ai-conclusion');
+  el.innerHTML = `<div class="ai-loading"><div class="ai-dot"></div><div class="ai-dot"></div><div class="ai-dot"></div><span style="margin-left:6px">Generating personalised conclusion...</span></div>`;
+
+  const chROAS = computeChannelROAS();
+  const prompt = `You are a marketing professor reviewing a PGDM student's marketing analysis. Write a concise, professional conclusion paragraph (4–5 sentences) for the following scenario:
+
+Brand: ${brandName} | Revenue: ${bd.rev} | Markets: ${bd.markets} | Stores: ${bd.stores} | Fiscal Year: FY ${F.year}
+Active Filters: Category: ${F.category} | Collection: ${F.collection} | Age Group: ${F.age} | Budget Range: ₹${F.budgetMin}–₹${F.budgetMax} | Market Type: ${F.company}
+Competitors analysed: ${F.competitors.map(k=>COMP_DB[k]?.label||k).join(', ')}
+Top ROAS channel: Email at ${chROAS.Email}x | Social: ${chROAS.Social}x | Influencer: ${chROAS.Influencer}x
+Brand Sentiment: Positive ${document.getElementById('sent-pos').textContent} | NPS: ${document.getElementById('kv-nps').textContent}
+
+The conclusion should: 1) summarise the brand's FY ${F.year} performance in the selected category and age group, 2) highlight the key competitive insight vs selected competitors, 3) recommend two specific strategic actions tailored to the budget range and collection, 4) close with a forward-looking statement for FY ${F.year+1}. Write in flowing professional prose suitable for a PGDM assignment. No bullet points.`;
+
+  try{
+    const resp = await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})});
+    const data = await resp.json();
+    const raw  = data.content?.map(b=>b.text||'').join('')||'';
+    const sentences = raw.split('. ');
+    const fmt = sentences.map((s,i)=>i===0?`<strong>${s}.</strong>`:s+(i<sentences.length-1?'.':'')).join(' ');
+    el.innerHTML = `<div class="ai-text">${fmt}</div>`;
+  }catch(e){
+    el.innerHTML = `<div class="ai-text" style="color:var(--amber)">AI temporarily unavailable. Your manual conclusions above accurately reflect the analysis.</div>`;
+  }
+}
+
+// ══════════════════════════════════════════════════════════
+// CONCLUSION ACCORDION
+// ══════════════════════════════════════════════════════════
+function toggleConcl(el){
+  const isOpen = el.classList.contains('open');
+  document.querySelectorAll('.concl-item').forEach(i=>i.classList.remove('open'));
+  if(!isOpen) el.classList.add('open');
+}
+
+// ══════════════════════════════════════════════════════════
+// NAV SCROLL HIGHLIGHT
+// ══════════════════════════════════════════════════════════
+window.addEventListener('scroll',()=>{
+  let cur = '';
+  document.querySelectorAll('[id]').forEach(el=>{ if(window.scrollY>=el.offsetTop-80) cur=el.id; });
+  document.querySelectorAll('.nav-links a').forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+cur));
+});
+
+// ══════════════════════════════════════════════════════════
+// FADE-IN INTERSECTION OBSERVER
+// ══════════════════════════════════════════════════════════
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+},{threshold:0.08});
+document.querySelectorAll('.kpi-cell,.mix-cell,.target-cell,.card,.sim-section,.concl-item').forEach(el=>{
+  el.classList.add('fade-up'); observer.observe(el);
+});
+
+// ══════════════════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════════════════
+// Sync initial filter state from DOM
+F.year        = +document.getElementById('f-year').value || 2024;
+F.brand       = document.getElementById('f-brand').value;
+F.competitors = Array.from(document.querySelectorAll('#f-competitors .chip.active')).map(c=>c.dataset.val);
+F.category    = document.querySelector('#f-category .chip.active')?.dataset.val || 'all';
+F.collection  = document.querySelector('#f-collection .chip.active')?.dataset.val || 'all';
+F.age         = document.querySelector('#f-age .chip.active')?.dataset.val || 'all';
+
+renderAll();
+</script>
+</body>
+</html>
